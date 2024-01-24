@@ -54,7 +54,7 @@ const Product = (props) => {
                     </Col>
                     <Col>
                         <Link to={`/seller/${product.seller._id}`}>
-                            {product.seller.seller.name}
+                            {product.seller.name}
                         </Link>
                     </Col>
                 </Row>
