@@ -128,7 +128,7 @@ function App() {
                                     )}
                                     {userInfo && userInfo.isSeller && (
                                         <NavDropdown title="Seller" id="admin-nav-dropdown">
-                                            <LinkContainer to="/seller/dashboard">
+                                            <LinkContainer to={`/seller/${userInfo._id}`}>
                                                 <NavDropdown.Item>Dashboard</NavDropdown.Item>
                                             </LinkContainer>
                                             <LinkContainer to="/seller/products">
