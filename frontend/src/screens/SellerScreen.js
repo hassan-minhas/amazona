@@ -61,8 +61,6 @@ export default function SellerScreen(props) {
         fetchData();
     }, [sellerId]);
 
-    console.log(user.seller)
-
     return (
         <>
             <Row>
