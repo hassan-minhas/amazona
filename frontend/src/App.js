@@ -41,6 +41,7 @@ import SellerRoute from "./components/SellerRoute";
 import ChatBox from "./components/ChatBox";
 import CategoryMenu from "./components/Categories";
 import StoreFront from "./components/Store-Front";
+import NavBar from "./components/Nav-Bar";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -85,88 +86,14 @@ function App() {
       >
         <ToastContainer position="bottom-center" limit={1} />
         <header>
-          <Navbar bg="dark" variant="dark" expand="lg">
-            <Container>
-              <Button
-                variant="dark"
-                onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
-              >
-                <i className="fas fa-bars"></i>
-              </Button>
-
-              <LinkContainer to="/">
-                <Navbar.Brand>amazona</Navbar.Brand>
-              </LinkContainer>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <SearchBox />
-                <Nav className="me-auto  w-100  justify-content-end">
-                  <Link to="/cart" className="nav-link">
-                    Cart
-                    {cart.cartItems.length > 0 && (
-                      <Badge pill bg="danger">
-                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      </Badge>
-                    )}
-                  </Link>
-                  {userInfo ? (
-                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                      <LinkContainer to="/profile">
-                        <NavDropdown.Item>User Profile</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/orderhistory">
-                        <NavDropdown.Item>Order History</NavDropdown.Item>
-                      </LinkContainer>
-                      <NavDropdown.Divider />
-                      <Link
-                        className="dropdown-item"
-                        to="#signout"
-                        onClick={signoutHandler}
-                      >
-                        Sign Out
-                      </Link>
-                    </NavDropdown>
-                  ) : (
-                    <Link className="nav-link" to="/signin">
-                      Sign In
-                    </Link>
-                  )}
-                  {userInfo && userInfo.isSeller && (
-                    <NavDropdown title="Seller" id="admin-nav-dropdown">
-                      <LinkContainer to={`/seller/${userInfo._id}`}>
-                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/seller/products">
-                        <NavDropdown.Item>Products</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/seller/orders">
-                        <NavDropdown.Item>Orders</NavDropdown.Item>
-                      </LinkContainer>
-                    </NavDropdown>
-                  )}
-                  {userInfo && userInfo.isAdmin && (
-                    <NavDropdown title="Admin" id="admin-nav-dropdown">
-                      <LinkContainer to="/admin/dashboard">
-                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/admin/products">
-                        <NavDropdown.Item>Products</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/admin/orders">
-                        <NavDropdown.Item>Orders</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/admin/users">
-                        <NavDropdown.Item>Users</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/support">
-                        <NavDropdown.Item>Support</NavDropdown.Item>
-                      </LinkContainer>
-                    </NavDropdown>
-                  )}
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
+          <NavBar
+            sidebarIsOpen={sidebarIsOpen}
+            setSidebarIsOpen={setSidebarIsOpen}
+            cart={cart}
+            userInfo={userInfo}
+            signoutHandler={signoutHandler}
+            categories={categories}
+          />
         </header>
         <div
           className={
@@ -326,10 +253,6 @@ function App() {
             ></Route>
           </Routes>
         </main>
-        <footer>
-          {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
-          <div className="text-center">All rights reserved</div>
-        </footer>
       </div>
     </BrowserRouter>
   );
