@@ -4,22 +4,19 @@ const collections = [
   {
     name: "Women's",
     href: "#",
-    imageSrc:
-      "/turkfy/cosmetics.jpg",
+    imageSrc: "/turkfy/cosmetics.jpg",
     imageAlt: "Woman wearing a comfortable cotton t-shirt.",
   },
   {
     name: "Men's",
     href: "#",
-    imageSrc:
-      "/turkfy/electronics.jpg",
+    imageSrc: "/turkfy/electronics.jpg",
     imageAlt: "Man wearing a comfortable and casual cotton t-shirt.",
   },
   {
     name: "Desk Accessories",
     href: "#",
-    imageSrc:
-      "/turkfy/furniture.jpg",
+    imageSrc: "/turkfy/furniture.jpg",
     imageAlt:
       "Person sitting at a wooden desk with paper note organizer, pencil and tablet.",
   },
@@ -68,15 +65,11 @@ export const StoreFrontHeader = () => {
               <div className="h-48 w-full bg-white" />
             </div>
             <div className="relative py-32">
-              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              </h1>
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"></h1>
               <div className="mt-4 sm:mt-6">
-                <a
-                  href="#"
-                  className="inline-block rounded-md border border-transparent bg-orange-600 px-8 py-3 font-medium text-white hover:bg-indigo-700"
-                >
+                <button className="inline-block rounded-md border-2  border-orange-600 bg-orange-600 px-8 py-3 text-white hover:bg-orange-600/65 font-bold transition-all">
                   Shop Collection
-                </a>
+                </button>
               </div>
             </div>
           </div>

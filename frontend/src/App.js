@@ -98,21 +98,28 @@ function App() {
         <div
           className={
             sidebarIsOpen
-              ? "active-nav side-navbar justify-content-between flex-wrap flex-column"
-              : "side-navbar justify-content-between flex-wrap flex-column"
+              ? "active-nav fixed side-navbar d-flex justify-content-between flex-wrap flex-column"
+              : "side-navbar fixed d-flex justify-content-between flex-wrap flex-column"
           }
         >
-          <Nav className="flex-column text-white w-100 p-2">
-            <Nav.Item>
-              <strong>Categories</strong>
+          <Nav className="flex-column text-white w-100 py-4">
+            <Nav.Item className="mb-3 px-3">
+              <strong className="text-2xl font-bold text-white ">
+                Categories
+              </strong>
             </Nav.Item>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
-                  to={`/search?category=${category}`}
+                  to={{
+                    pathname: "/search",
+                    search: `?category=${category}`,
+                  }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link>{category}</Nav.Link>
+                  <Nav.Link className="text-sm font-semibold leading-6 text-white cursor-pointer px-3 py-2 transition-all hover:shadow-xl hover:bg-orange-600 hover-text-gray-800">
+                    {category}
+                  </Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}

@@ -72,17 +72,17 @@ export const StoreFrontProducts = () => {
 
   return (
     <section aria-labelledby="trending-heading">
-      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:pt-32">
+      <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
         <div className="md:flex md:items-center md:justify-between">
           <h2
             id="favorites-heading"
-            className="text-2xl font-bold tracking-tight text-gray-900"
+            className="text-4xl font-bold text-gray-700"
           >
             Trending Products
           </h2>
           <a
             href="#"
-            className="hidden text-sm font-medium text-orange-600 hover:text-orange-500 md:block"
+            className="hidden text-sm font-medium text-orange-600 hover:text-orange-600 md:block"
           >
             Shop the collection
             <span aria-hidden="true"> &rarr;</span>

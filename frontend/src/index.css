@@ -10,12 +10,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .site-container {
   min-height: 100vh;
 }
+
 main {
   flex: 1;
 }
+
 .btn-primary,
 .btn-outline-primary {
   background-color: #f0c040;
@@ -28,36 +31,46 @@ main {
   justify-content: center;
 }
 
+.ratings .rating span {
+  color: #fff;
+}
+
 .rating span {
-  color: #ffc000;
+  color: #ea580c;
 }
 
 .product {
   border: 1px #404040 solid;
   margin: 1rem;
 }
+
 .product img {
   width: 100%;
   max-width: 400px;
 }
+
 .product-info {
   padding: 1rem;
 }
+
 .img-large {
   max-width: 100%;
 }
+
 .img-thumbnail {
   height: 80px;
 }
+
 .small-container {
   max-width: 600px;
 }
 
-.checkout-steps > div {
+.checkout-steps>div {
   border-bottom: 0.2rem solid #a0a0a0;
   color: #a0a0a0;
 }
-.checkout-steps > div.active {
+
+.checkout-steps>div.active {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
 }
@@ -66,24 +79,28 @@ main {
 .navbar-brand {
   font-weight: bold;
 }
+
 .side-navbar {
   width: 240px;
   height: 100%;
-  position: absolute;
+  position: fixed;
   left: -300px;
-  background-color: #100901;
+  background-color: #212529;
   transition: 0.5s;
 }
 
 .site-container {
   transition: 0.4s;
 }
+
 .active-cont {
   margin-left: 240px;
 }
+
 .active-nav {
   left: 0;
 }
+
 .text-bold {
   font-weight: bold;
 }
@@ -94,10 +111,12 @@ main {
   height: 100vh;
   max-width: initial;
 }
+
 .full-box header,
 .full-box footer {
   display: none;
 }
+
 .full-box .container {
   height: 100vh;
   max-width: initial;
@@ -119,10 +138,12 @@ main {
   height: 3rem;
   display: flex;
 }
+
 .map-input-box input {
   border-radius: 1rem 0 0 1rem;
   border-right: 0;
 }
+
 .map-input-box button {
   border-radius: 0 1rem 1rem 0;
   border-left: 0;
@@ -147,13 +168,16 @@ button.thumbnail {
   right: 1rem;
   bottom: 1rem;
 }
+
 .chatbox ul {
   overflow: scroll;
   max-height: 20rem;
 }
+
 .chatbox li {
   margin-bottom: 1rem;
 }
+
 .chatbox input {
   width: calc(100% - 9rem);
 }
@@ -162,14 +186,17 @@ button.thumbnail {
   background: #f0f0f0;
   height: 100%;
 }
+
 .support-users li {
   background-color: #f8f8f8;
 }
+
 .support-users button {
   background-color: transparent;
   border: none;
   text-align: left;
 }
+
 .support-users li {
   margin: 0;
   background-color: #f0f0f0;
@@ -179,25 +206,31 @@ button.thumbnail {
 .support-users li:hover {
   background-color: #f0f0f0;
 }
+
 .support-users li.selected {
   background-color: #c0c0c0;
 }
+
 .support-messages {
   padding: 1rem;
 }
+
 .support-messages input {
   /* width: calc(100% - 9rem); */
   width: calc(100%);
   height: 3rem;
 }
+
 .support-messages ul {
   height: calc(100vh - 18rem);
   max-height: calc(100vh - 18rem);
   overflow: scroll;
 }
+
 .support-messages li {
   margin-bottom: 1rem;
 }
+
 .support-users span {
   width: 1rem;
   height: 1rem;
@@ -206,12 +239,19 @@ button.thumbnail {
   margin-left: 25px;
   margin-top: 5px;
 }
+
 .support-users .offline {
   background-color: #808080;
 }
+
 .support-users .online {
   background-color: #20a020;
 }
+
 .support-users .unread {
   background-color: #f02020;
+}
+
+.nav-link {
+  color: #fff !important;
 }

@@ -128,13 +128,19 @@ export default function SearchScreen() {
       <Helmet>
         <title>Search Products</title>
       </Helmet>
-      <div className="flex">
-        <div className="w-1/4">
-          <h3 className="text-lg font-semibold mb-2">Department</h3>
-          <ul>
+      <div className="flex min-h-full flex-1 justify-center py-12 gap-6">
+        <div className="w-1/4 bg-[#212529] rounded-md h-full py-4 flex flex-col gap-4">
+          <h3 className="text-lg text-white font-bold px-3 cursor-pointer ">
+            Department
+          </h3>
+          <ul className="flex flex-col gap-2">
             <li>
               <Link
-                className={`block ${category === "all" && "font-semibold"}`}
+                className={`block ${
+                  category === "all"
+                    ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
+                    : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                }`}
                 to={getFilterUrl({ category: "all" })}
               >
                 Any
@@ -143,7 +149,11 @@ export default function SearchScreen() {
             {categories.map((c) => (
               <li key={c}>
                 <Link
-                  className={`block ${category === c && "font-semibold"}`}
+                  className={`block ${
+                    category === c
+                      ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
+                      : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                  }`}
                   to={getFilterUrl({ category: c })}
                 >
                   {c}
@@ -151,11 +161,17 @@ export default function SearchScreen() {
               </li>
             ))}
           </ul>
-          <h3 className="text-lg font-semibold mt-4">Price</h3>
-          <ul>
+          <h3 className="text-lg text-white font-bold px-3 cursor-pointer">
+            Price
+          </h3>
+          <ul className="flex flex-col gap-2">
             <li>
               <Link
-                className={`block ${price === "all" && "font-semibold"}`}
+                className={`block ${
+                  price === "all"
+                    ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
+                    : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                }`}
                 to={getFilterUrl({ price: "all" })}
               >
                 Any
@@ -164,7 +180,11 @@ export default function SearchScreen() {
             {prices.map((p) => (
               <li key={p.value}>
                 <Link
-                  className={`block ${price === p.value && "font-semibold"}`}
+                  className={`block ${
+                    price === p.value
+                      ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
+                      : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                  }`}
                   to={getFilterUrl({ price: p.value })}
                 >
                   {p.name}
@@ -172,13 +192,17 @@ export default function SearchScreen() {
               </li>
             ))}
           </ul>
-          <h3 className="text-lg font-semibold mt-4">Avg. Customer Review</h3>
-          <ul>
+          <h3 className="text-lg text-white font-bold px-3 cursor-pointer">
+            Avg. Customer Review
+          </h3>
+          <ul className="flex ratings flex-col gap-2">
             {ratings.map((r) => (
               <li key={r.name}>
                 <Link
                   className={`block ${
-                    rating === r.rating.toString() && "font-semibold"
+                    rating === r.rating.toString()
+                      ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
+                      : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
                   }`}
                   to={getFilterUrl({ rating: r.rating })}
                 >
@@ -188,7 +212,11 @@ export default function SearchScreen() {
             ))}
             <li>
               <Link
-                className={`block ${rating === "all" && "font-semibold"}`}
+                className={`block ${
+                  rating === "all"
+                    ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
+                    : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                }`}
                 to={getFilterUrl({ rating: "all" })}
               >
                 <Rating caption={" & up"} rating={0}></Rating>
@@ -204,7 +232,7 @@ export default function SearchScreen() {
           ) : (
             <>
               <div className="flex justify-between items-center mb-3">
-                <div>
+                <div className="text-lg font-bold text-gray-800">
                   {countProducts === 0 ? "No" : countProducts} Results
                   {query !== "all" && `: ${query}`}
                   {category !== "all" && `: ${category}`}
@@ -222,10 +250,12 @@ export default function SearchScreen() {
                     </button>
                   )}
                 </div>
-                <div className="text-right">
-                  Sort by{" "}
+                <div className="text-right flex gap-3 align-middle items-center">
+                  <span className="text-gray-800 font-bold text-lg">
+                    Sort by
+                  </span>
                   <select
-                    className="border rounded-md p-1"
+                    className="border rounded-md py-2 text-gray-800 font-semibold text-lg px-4"
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }));
@@ -242,29 +272,33 @@ export default function SearchScreen() {
                 <MessageBox>No Product Found</MessageBox>
               )}
 
-              <div className="flex flex-wrap">
+              <div className="-mx-px grid grid-cols-2 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
                 {products.map((product) => (
-                  <div
-                    key={product._id}
-                    className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-2"
-                  >
-                    <Product product={product}></Product>
-                  </div>
+                  <Product key={product._id} product={product}></Product>
                 ))}
               </div>
 
               <div className="mt-4 flex justify-center">
-                {[...Array(pages).keys()].map((x) => (
-                  <Link
-                    key={x + 1}
-                    to={getFilterUrl({ page: x + 1 })}
-                    className={`mx-1 ${
-                      Number(page) === x + 1 ? "font-semibold" : ""
-                    }`}
+                <div>
+                  <nav
+                    className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+                    aria-label="Pagination"
                   >
-                    {x + 1}
-                  </Link>
-                ))}
+                    {[...Array(pages).keys()].map((x) => (
+                      <Link
+                        key={x + 1}
+                        to={getFilterUrl({ page: x + 1 })}
+                        className={`${
+                          Number(page) === x + 1
+                            ? "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            : "relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"
+                        }`}
+                      >
+                        {x + 1}
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
               </div>
             </>
           )}
