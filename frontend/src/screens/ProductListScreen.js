@@ -158,7 +158,7 @@ export default function ProductListScreen(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product) => (
+                            {products?.map((product) => (
                                 <tr key={product._id}>
                                     <td>{product._id}</td>
                                     <td>{product.name}</td>
@@ -187,7 +187,7 @@ export default function ProductListScreen(props) {
                         </tbody>
                     </table>
                     <div>
-                        {[...Array(pages).keys()].map((x) => (
+                        {[...Array(pages).keys()]?.map((x) => (
                             <Link
                                 className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
                                 key={x + 1}

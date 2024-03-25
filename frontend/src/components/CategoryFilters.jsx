@@ -105,7 +105,7 @@ export default function Example() {
 
                   {/* Filters */}
                   <form className="mt-4">
-                    {filters.map((section) => (
+                    {filters?.map((section) => (
                       <Disclosure
                         as="div"
                         key={section.name}
@@ -131,7 +131,7 @@ export default function Example() {
                             </legend>
                             <Disclosure.Panel className="px-4 pb-2 pt-4">
                               <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
+                                {section.options?.map((option, optionIdx) => (
                                   <div
                                     key={option.value}
                                     className="flex items-center"
@@ -195,7 +195,7 @@ export default function Example() {
 
               <div className="hidden lg:block">
                 <form className="space-y-10 divide-y divide-gray-200">
-                  {filters.map((section, sectionIdx) => (
+                  {filters?.map((section, sectionIdx) => (
                     <div
                       key={section.name}
                       className={sectionIdx === 0 ? null : "pt-10"}
@@ -205,7 +205,7 @@ export default function Example() {
                           {section.name}
                         </legend>
                         <div className="space-y-3 pt-6">
-                          {section.options.map((option, optionIdx) => (
+                          {section.options?.map((option, optionIdx) => (
                             <div
                               key={option.value}
                               className="flex items-center"

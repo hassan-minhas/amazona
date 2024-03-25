@@ -77,7 +77,7 @@ export default function ChatBox(props) {
                         </button>
                     </div>
                     <ul ref={uiMessagesRef}>
-                        {messages.map((msg, index) => (
+                        {messages?.map((msg, index) => (
                             <li key={index}>
                                 <strong>{`${msg.name}: `}</strong> {msg.body}
                             </li>

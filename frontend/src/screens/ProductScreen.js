@@ -152,7 +152,7 @@ const ProductScreen = () => {
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row xs={1} md={2} className="g-2">
-                                    {[product.image, ...product.images].map((x) => (
+                                    {[product.image, ...product.images]?.map((x) => (
                                         <Col key={x}>
                                             <Card>
                                                 <Button
@@ -241,7 +241,7 @@ const ProductScreen = () => {
                         )}
                     </div>
                     <ListGroup>
-                        {product.reviews.map((review) => (
+                        {product.reviews?.map((review) => (
                             <ListGroup.Item key={review._id}>
                                 <strong>{review.name}</strong>
                                 <Rating rating={review.rating} caption=" "></Rating>

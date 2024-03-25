@@ -189,7 +189,7 @@ export default function StoreFront() {
 
           <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
             <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0">
-              {perks.map((perk) => (
+              {perks?.map((perk) => (
                 <div
                   key={perk.name}
                   className="text-center md:flex md:items-start md:text-left lg:block lg:text-center"
@@ -243,7 +243,7 @@ export default function StoreFront() {
                       Products
                     </h3>
                     <ul role="list" className="mt-6 space-y-6">
-                      {footerNavigation.products.map((item) => (
+                      {footerNavigation.products?.map((item) => (
                         <li key={item.name} className="text-sm">
                           <a
                             href={item.href}
@@ -260,7 +260,7 @@ export default function StoreFront() {
                       Company
                     </h3>
                     <ul role="list" className="mt-6 space-y-6">
-                      {footerNavigation.company.map((item) => (
+                      {footerNavigation.company?.map((item) => (
                         <li key={item.name} className="text-sm">
                           <a
                             href={item.href}
@@ -278,7 +278,7 @@ export default function StoreFront() {
                     Customer Service
                   </h3>
                   <ul role="list" className="mt-6 space-y-6">
-                    {footerNavigation.customerService.map((item) => (
+                    {footerNavigation.customerService?.map((item) => (
                       <li key={item.name} className="text-sm">
                         <a
                           href={item.href}

@@ -113,7 +113,7 @@ export default function DashboardScreen() {
                                 loader={<div>Loading Chart...</div>}
                                 data={[
                                     ['Date', 'Sales'],
-                                    ...summary.dailyOrders.map((x) => [x._id, x.sales]),
+                                    ...summary.dailyOrders?.map((x) => [x._id, x.sales]),
                                 ]}
                             ></Chart>
                         )}
@@ -130,7 +130,7 @@ export default function DashboardScreen() {
                                 loader={<div>Loading Chart...</div>}
                                 data={[
                                     ['Category', 'Products'],
-                                    ...summary.productCategories.map((x) => [x._id, x.count]),
+                                    ...summary.productCategories?.map((x) => [x._id, x.count]),
                                 ]}
                             ></Chart>
                         )}

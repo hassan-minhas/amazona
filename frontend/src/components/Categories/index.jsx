@@ -97,7 +97,7 @@ const CategoryMenu = ({ categories, onSelectCategory }) => {
               {/* Flyout menus */}
               <Popover.Group className="absolute inset-x-0 bottom-0 sm:static sm:flex-1 sm:self-stretch">
                 <div className="flex h-14 space-x-8 overflow-x-auto border-t px-4 pb-px sm:h-full sm:justify-center sm:overflow-visible sm:border-t-0 sm:pb-0">
-                  {navigation.categories.map((category, categoryIdx) => (
+                  {navigation.categories?.map((category, categoryIdx) => (
                     <Popover key={categoryIdx} className="flex">
                       {({ open }) => (
                         <>
@@ -147,7 +147,7 @@ const CategoryMenu = ({ categories, onSelectCategory }) => {
                                             aria-labelledby="clothing-heading"
                                             className="space-y-6 sm:space-y-4"
                                           >
-                                            {category.clothing[0].map(
+                                            {category.clothing[0]?.map(
                                               (item) => (
                                                 <li
                                                   key={item.name}
@@ -168,7 +168,7 @@ const CategoryMenu = ({ categories, onSelectCategory }) => {
                                             aria-label="More clothing"
                                             className="mt-6 space-y-6 sm:mt-0 sm:space-y-4"
                                           >
-                                            {category.clothing[1].map(
+                                            {category.clothing[1]?.map(
                                               (item) => (
                                                 <li
                                                   key={item.name}
@@ -200,7 +200,7 @@ const CategoryMenu = ({ categories, onSelectCategory }) => {
                                           aria-labelledby="accessories-heading"
                                           className="mt-4 space-y-6 border-t border-gray-200 pt-6 sm:space-y-4"
                                         >
-                                          {category.accessories.map((item) => (
+                                          {category.accessories?.map((item) => (
                                             <li
                                               key={item.name}
                                               className="flex"
@@ -227,7 +227,7 @@ const CategoryMenu = ({ categories, onSelectCategory }) => {
                                           aria-labelledby="categories-heading"
                                           className="mt-4 space-y-6 border-t border-gray-200 pt-6 sm:space-y-4"
                                         >
-                                          {category.categories.map((item) => (
+                                          {category.categories?.map((item) => (
                                             <li
                                               key={item.name}
                                               className="flex"
@@ -253,7 +253,7 @@ const CategoryMenu = ({ categories, onSelectCategory }) => {
                     </Popover>
                   ))}
 
-                  {navigation.other.map((item) => (
+                  {navigation.other?.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}

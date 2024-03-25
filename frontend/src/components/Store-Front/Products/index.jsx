@@ -96,7 +96,7 @@ export const StoreFrontProducts = () => {
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
             <Row>
-              {products.map((product) => (
+              {products?.map((product) => (
                 <Col xs={6} md={4} lg={3} key={product.slug} className="mb-3">
                   <Product product={product} />
                 </Col>

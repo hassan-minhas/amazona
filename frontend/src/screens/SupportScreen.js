@@ -47,7 +47,7 @@ export default function SupportScreen() {
                 } else {
                     const existUser = allUsers.find((user) => user._id === data._id);
                     if (existUser) {
-                        allUsers = allUsers.map((user) =>
+                        allUsers = allUsers?.map((user) =>
                             user._id === existUser._id ? { ...user, unread: true } : user
                         );
                         setUsers(allUsers);
@@ -59,7 +59,7 @@ export default function SupportScreen() {
             sk.on('updateUser', (updatedUser) => {
                 const existUser = allUsers.find((user) => user._id === updatedUser._id);
                 if (existUser) {
-                    allUsers = allUsers.map((user) =>
+                    allUsers = allUsers?.map((user) =>
                         user._id === existUser._id ? updatedUser : user
                     );
                     setUsers(allUsers);
@@ -86,7 +86,7 @@ export default function SupportScreen() {
         setSelectedUser(allSelectedUser);
         const existUser = allUsers.find((x) => x._id === user._id);
         if (existUser) {
-            allUsers = allUsers.map((x) =>
+            allUsers = allUsers?.map((x) =>
                 x._id === existUser._id ? { ...x, unread: false } : x
             );
             setUsers(allUsers);
@@ -127,7 +127,7 @@ export default function SupportScreen() {
                         <ul>
                             {users
                                 .filter((x) => x._id !== userInfo._id)
-                                .map((user) => (
+                                ?.map((user) => (
                                     <li
                                         key={user._id}
                                         className={user._id === selectedUser._id ? '  selected' : ' '}
@@ -160,7 +160,7 @@ export default function SupportScreen() {
                                 </div>
                                 <ul ref={uiMessagesRef}>
                                     {messages.length === 0 && <li>No message.</li>}
-                                    {messages.map((msg, index) => (
+                                    {messages?.map((msg, index) => (
                                         <li key={index}>
                                             <strong>{`${msg.name}: `}</strong> {msg.body}
                                         </li>

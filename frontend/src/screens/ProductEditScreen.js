@@ -212,7 +212,7 @@ export default function ProductEditScreen() {
                         <Form.Label>Additional Image</Form.Label>
                         {images.length === 0 && <MessageBox>No image</MessageBox>}
                         <ListGroup variant="flush">
-                            {images.map((x) => (
+                            {images?.map((x) => (
                                 <ListGroup.Item key={x}>
                                     {x}
                                     <Button variant="light" onClick={() => deleteFileHandler(x)}>

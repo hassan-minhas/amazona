@@ -146,7 +146,7 @@ export default function SearchScreen() {
                 Any
               </Link>
             </li>
-            {categories.map((c) => (
+            {categories?.map((c) => (
               <li key={c}>
                 <Link
                   className={`block ${
@@ -177,7 +177,7 @@ export default function SearchScreen() {
                 Any
               </Link>
             </li>
-            {prices.map((p) => (
+            {prices?.map((p) => (
               <li key={p.value}>
                 <Link
                   className={`block ${
@@ -196,7 +196,7 @@ export default function SearchScreen() {
             Avg. Customer Review
           </h3>
           <ul className="flex ratings flex-col gap-2">
-            {ratings.map((r) => (
+            {ratings?.map((r) => (
               <li key={r.name}>
                 <Link
                   className={`block ${
@@ -273,7 +273,7 @@ export default function SearchScreen() {
               )}
 
               <div className="-mx-px grid grid-cols-2 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
-                {products.map((product) => (
+                {products?.map((product) => (
                   <Product key={product._id} product={product}></Product>
                 ))}
               </div>
@@ -284,7 +284,7 @@ export default function SearchScreen() {
                     className="isolate inline-flex -space-x-px rounded-md shadow-sm"
                     aria-label="Pagination"
                   >
-                    {[...Array(pages).keys()].map((x) => (
+                    {[...Array(pages).keys()]?.map((x) => (
                       <Link
                         key={x + 1}
                         to={getFilterUrl({ page: x + 1 })}

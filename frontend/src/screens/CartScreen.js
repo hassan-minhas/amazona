@@ -55,7 +55,7 @@ export default function CartScreen() {
             {/* product list  */}
             <div className="flex w-full flex-col gap-10">
               <div className="divide-y divide-gray-200 border-b border-t border-gray-200">
-                {cartItems.map((product, index) => (
+                {cartItems?.map((product, index) => (
                   <CartItem
                     product={product}
                     index={index}

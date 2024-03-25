@@ -112,7 +112,7 @@ export default function SellerScreen(props) {
                         ) : (
                             <>
                                 {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-                                {products.map((product) => (
+                                {products?.map((product) => (
                                     <Col xs={6} md={4} lg={4} key={product.slug} className="mb-3">
                                         <Product key={product._id} product={product}></Product>
                                     </Col>
