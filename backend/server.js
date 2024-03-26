@@ -9,7 +9,7 @@ import productRouter from "./routers/productRouters.js";
 import userRouter from "./routers/userRoutes.js";
 import orderRouter from "./routers/orderRoutes.js";
 import uploadRouter from "./routers/uploadRoutes.js";
-const cors = require("cors");
+import cors from "cors";
 
 dotenv.config();
 const url = process.env.MONGODB_URI;
