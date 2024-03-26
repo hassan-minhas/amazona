@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from "axios";
 import logger from "use-reducer-logger";
+import { API_URL } from "../../utils";
 
 const products = [
   {
@@ -80,11 +81,11 @@ export default function ProductExample() {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const result = await axios.get("/api/products");
+        const result = await axios.get(`${API_URL}api/products`);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
 
         dispatch({ type: "FETCH_SELLER_REQUEST" });
-        const sellers = await axios.get("/api/users/top-sellers");
+        const sellers = await axios.get(`${API_URL}api/users/top-sellers`);
         dispatch({ type: "FETCH_SELLER_SUCCESS", payload: sellers.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });

@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Store } from "../Store";
 import { toast } from "react-toastify";
-import { getError } from "../utils";
+import { API_URL, getError } from "../utils";
 import axios from "axios";
 
 const reducer = (state, action) => {
@@ -49,9 +49,13 @@ export default function ProfileScreen() {
     };
 
     try {
-      const { data } = await axios.put("/api/users/profile", updatedData, {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
+      const { data } = await axios.put(
+        `${API_URL}api/users/profile`,
+        updatedData,
+        {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        }
+      );
 
       dispatch({ type: "UPDATE_SUCCESS" });
 

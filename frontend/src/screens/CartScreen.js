@@ -10,6 +10,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Store } from "../Store";
 import axios from "axios";
 import CartItem from "../components/cartItem";
+import { API_URL } from "../utils";
 
 export default function CartScreen() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function CartScreen() {
   } = state;
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`${API_URL}api/products/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;

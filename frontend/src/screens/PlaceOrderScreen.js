@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { toast } from "react-toastify";
-import { getError } from "../utils";
+import { API_URL, getError } from "../utils";
 import CheckoutSteps from "../components/CheckoutSteps";
 import LoadingBox from "../components/LoadingBox";
 import CartItem from "../components/cartItem";
@@ -66,7 +66,7 @@ export default function PlaceOrderScreen() {
     try {
       dispatch({ type: "CREATE_REQUEST" });
 
-      const { data } = await Axios.post("/api/orders", orderData, {
+      const { data } = await Axios.post(`${API_URL}api/orders`, orderData, {
         headers: {
           authorization: `Bearer ${userInfo.token}`,
         },

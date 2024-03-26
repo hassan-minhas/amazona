@@ -9,6 +9,7 @@ import productRouter from "./routers/productRouters.js";
 import userRouter from "./routers/userRoutes.js";
 import orderRouter from "./routers/orderRoutes.js";
 import uploadRouter from "./routers/uploadRoutes.js";
+const cors = require("cors");
 
 dotenv.config();
 const url = process.env.MONGODB_URI;
@@ -27,8 +28,13 @@ db.once("open", () => {
 //         console.log('Connected to Database.');
 //     })
 //     .catch(err => console.log(err.message));
+const corsOptions = {
+  origin: "http://localhost:3000", // Replace with your frontend URL
+  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+};
 
 const app = express();
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

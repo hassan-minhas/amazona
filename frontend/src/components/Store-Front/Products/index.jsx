@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Product from "../../Product";
 import LoadingBox from "../../LoadingBox";
 import MessageBox from "../../MessageBox";
+import { API_URL } from "../../../utils";
 
 const trendingProducts = [
   {
@@ -56,11 +57,11 @@ export const StoreFrontProducts = () => {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const result = await axios.get("/api/products");
+        const result = await axios.get(`${API_URL}api/products`);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
 
         dispatch({ type: "FETCH_SELLER_REQUEST" });
-        const sellers = await axios.get("/api/users/top-sellers");
+        const sellers = await axios.get(`${API_URL}api/users/top-sellers`);
         dispatch({ type: "FETCH_SELLER_SUCCESS", payload: sellers.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });

@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet-async";
 import { useContext, useEffect, useState } from "react";
 import { Store } from "../Store";
 import { toast } from "react-toastify";
-import { getError } from "../utils";
+import { API_URL, getError } from "../utils";
 
 export default function SignupScreen() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function SignupScreen() {
     }
 
     try {
-      const { data } = await Axios.post("/api/users/signup", {
+      const { data } = await Axios.post(`${API_URL}api/users/signup`, {
         name,
         email,
         password,

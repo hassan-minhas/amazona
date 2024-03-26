@@ -9,7 +9,7 @@ import MessageBox from "../components/MessageBox";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Store } from "../Store";
 import axios from "axios";
-import { getError } from "../utils";
+import { API_URL, getError } from "../utils";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
@@ -97,7 +97,7 @@ export default function OrderScreen() {
         dispatch({ type: "PAY_REQUEST" });
 
         const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`,
+          `${API_URL}api/orders/${order._id}/pay`,
           details,
           {
             headers: { authorization: `Bearer ${userInfo.token}` },
@@ -122,7 +122,7 @@ export default function OrderScreen() {
       try {
         dispatch({ type: "FETCH_REQUEST" });
 
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`${API_URL}api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
 
@@ -150,9 +150,12 @@ export default function OrderScreen() {
       }
     } else {
       const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get("/api/keys/paypal", {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data: clientId } = await axios.get(
+          `${API_URL}/api/keys/paypal`,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          }
+        );
 
         paypalDispatch({
           type: "resetOptions",
@@ -180,7 +183,7 @@ export default function OrderScreen() {
     try {
       dispatch({ type: "DELIVER_REQUEST" });
       const { data } = await axios.put(
-        `/api/orders/${order._id}/deliver`,
+        `${API_URL}api/orders/${order._id}/deliver`,
         {},
         {
           headers: { authorization: `Bearer ${userInfo.token}` },
