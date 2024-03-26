@@ -29,8 +29,8 @@ db.once("open", () => {
 //     })
 //     .catch(err => console.log(err.message));
 const corsOptions = {
-  origin: "http://localhost:3000", // Replace with your frontend URL
-  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+  origin: ["http://localhost:3000", "http://77.37.51.85:3000/"],
+  optionsSuccessStatus: 200,
 };
 
 const app = express();
