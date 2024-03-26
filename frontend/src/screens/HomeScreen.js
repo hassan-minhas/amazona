@@ -65,7 +65,7 @@ const HomeScreen = () => {
   return (
     <div>
       <Helmet>
-        <title>Amazona</title>
+        <title>Turkfy</title>
       </Helmet>
 
       <StoreFrontHeader />

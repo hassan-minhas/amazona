@@ -231,7 +231,7 @@ export default function StoreFront() {
                   className="text-orange-600 text-xl font-bold transition-all"
                   to="/"
                 >
-                  amazona
+                  Turkfy
                 </Link>
               </div>
 

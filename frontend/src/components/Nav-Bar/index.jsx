@@ -34,7 +34,7 @@ function NavBar({
 
         <LinkContainer to="/">
           <Navbar.Brand className="text-orange-600 hover:text-white transition-all">
-            amazona
+            Turkfy
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
