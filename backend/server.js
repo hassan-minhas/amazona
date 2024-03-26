@@ -29,7 +29,7 @@ db.once("open", () => {
 //     })
 //     .catch(err => console.log(err.message));
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://77.37.51.85:3000/"],
+  origin: ["http://localhost:3000", "http://77.37.51.85:3000"],
   optionsSuccessStatus: 200,
 };
 
