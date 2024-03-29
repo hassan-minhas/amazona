@@ -22,19 +22,20 @@ function NavBar({
   categories,
 }) {
   return (
-    <Navbar bg="dark" variant="light" className="py-3" expand="lg">
+    <Navbar bg="light" variant="light" className="py-3" expand="lg">
       <Container>
         <Button
           variant="light"
           onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
-          className="text-orange-600 border-orange-600 p-0  min-w-9 min-h-9  hover:border-orange-600 border-1 hover:bg-orange-600 mr-1 hover:text-white"
+          className="text-orange-600 border-orange-600 p-0  min-w-9 min-h-9  hover:border-orange-600 border-1 hover:bg-transparent mr-1 hover:text-orange-600"
         >
           <i className="fas fa-bars "></i>
         </Button>
 
         <LinkContainer to="/">
-          <Navbar.Brand className="text-orange-600 hover:text-white transition-all">
-            Turkfy
+          <Navbar.Brand className="text-orange-600 flex align-middle items-center justify-center hover:text-orange-600 transition-all">
+            <img src="/logo.png" className="w-10 h-auto" alt="" />
+            <span className="-mx-1">Turkfy</span>
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -56,7 +57,7 @@ function NavBar({
             </LinkContainer> */}
             <Link
               to="/cart"
-              className="nav-link text-sm font-semibold leading-6 relative text-white cursor-pointer flex align-middle justify-center items-center"
+              className="nav-link text-sm font-semibold leading-6 relative text-[#212529] cursor-pointer flex align-middle justify-center items-center"
             >
               Cart
               {cart.cartItems.length > 0 && (
@@ -67,7 +68,7 @@ function NavBar({
             </Link>
             {userInfo ? (
               <NavDropdown
-                className="text-sm font-semibold leading-6 text-white cursor-pointer"
+                className="text-sm font-semibold leading-6 text-[#212529] cursor-pointer"
                 title={userInfo.name}
                 style={{ color: "white" }}
                 id="basic-nav-dropdown"
@@ -93,7 +94,7 @@ function NavBar({
               </NavDropdown>
             ) : (
               <Link
-                className="nav-link text-sm font-semibold leading-6 text-white cursor-pointer flex align-middle justify-center items-center"
+                className="nav-link text-sm font-semibold leading-6 text-[#212529] cursor-pointer flex align-middle justify-center items-center"
                 to="/signin"
               >
                 Sign In

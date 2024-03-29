@@ -42,7 +42,6 @@ import ChatBox from "./components/ChatBox";
 import CategoryMenu from "./components/Categories";
 import StoreFront from "./components/Store-Front";
 import NavBar from "./components/Nav-Bar";
-
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { fullBox, cart, userInfo } = state;
@@ -98,13 +97,13 @@ function App() {
         <div
           className={
             sidebarIsOpen
-              ? "active-nav fixed side-navbar d-flex justify-content-between flex-wrap flex-column"
+              ? "active-nav fixed side-navbar d-flex justify-content-between flex-wrap flex-column shadow-xl"
               : "side-navbar fixed d-flex justify-content-between flex-wrap flex-column"
           }
         >
-          <Nav className="flex-column text-white w-100 py-4">
+          <Nav className="flex-column text-[#212529] w-100 py-4">
             <Nav.Item className="mb-3 px-3">
-              <strong className="text-2xl font-bold text-white ">
+              <strong className="text-2xl font-bold text-[#212529] ">
                 Categories
               </strong>
             </Nav.Item>
@@ -117,7 +116,7 @@ function App() {
                   }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link className="text-sm font-semibold leading-6 text-white cursor-pointer px-3 py-2 transition-all hover:shadow-xl hover:bg-orange-600 hover-text-gray-800">
+                  <Nav.Link className="text-sm font-semibold leading-6 text-[#212529] cursor-pointer px-3 py-2 transition-all hover:shadow-xl hover:bg-orange-600 hover:text-white">
                     {category}
                   </Nav.Link>
                 </LinkContainer>

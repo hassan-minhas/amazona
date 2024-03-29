@@ -31,8 +31,12 @@ main {
   justify-content: center;
 }
 
-.ratings .rating span {
-  color: #fff;
+.ratings li a:hover .rating span {
+  color: #fff !important;
+}
+
+.ratings li a.active-rating .rating span {
+  color: #fff !important;
 }
 
 .rating span {
@@ -85,7 +89,7 @@ main {
   height: 100%;
   position: fixed;
   left: -300px;
-  background-color: #212529;
+  background-color: white;
   transition: 0.5s;
 }
 
@@ -253,5 +257,10 @@ button.thumbnail {
 }
 
 .nav-link {
-  color: #fff !important;
+  /* color: #fff !important; */
+}
+
+
+.navbar {
+  background-color: white !important;
 }

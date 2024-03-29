@@ -46,7 +46,7 @@ export const StoreFrontHeader = () => {
             <div className="h-32 w-full bg-white md:h-40 lg:h-48" />
           </div>
 
-          <div className="relative mx-auto max-w-3xl px-4 pb-96 text-center sm:px-6 sm:pb-0 lg:px-8">
+          <div className="relative mx-auto max-w-5xl px-4 pb-96 text-center sm:px-6 sm:pb-0 lg:px-8">
             {/* Background image and overlap */}
             <div
               aria-hidden="true"
@@ -55,7 +55,7 @@ export const StoreFrontHeader = () => {
               <div className="relative w-full flex-1 bg-gray-800">
                 <div className="absolute inset-0 overflow-hidden">
                   <img
-                    src="/turkfy/cosmetics.jpg"
+                    src="/turkfy/mockup.jpg"
                     alt=""
                     className="h-full w-full object-cover object-center"
                   />
@@ -65,12 +65,12 @@ export const StoreFrontHeader = () => {
               <div className="h-48 w-full bg-white" />
             </div>
             <div className="relative py-32">
-              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"></h1>
-              <div className="mt-4 sm:mt-6">
-                <button className="inline-block rounded-md border-2  border-orange-600 bg-orange-600 px-8 py-3 text-white hover:bg-orange-600/65 font-bold transition-all">
+              <h1 className="text-white text-6xl font-bold">
+                Where Supply meets demand
+              </h1>
+              {/* <button className="inline-block rounded-md border-2  border-orange-600 bg-orange-600 px-8 py-3 text-white hover:bg-orange-600/65 font-bold transition-all">
                   Shop Collection
-                </button>
-              </div>
+                </button> */}
             </div>
           </div>
 

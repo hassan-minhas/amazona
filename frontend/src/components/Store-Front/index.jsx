@@ -324,10 +324,10 @@ export default function StoreFront() {
             </div>
           </div>
         </div>
-        <div className="bg-[#212529]">
+        <div className="bg-white">
           <div className="mx-auto max-w-7xl px-4">
             <div className="py-4 text-center">
-              <p className="text-center text-sm font-semibold leading-6 text-white cursor-pointer ">
+              <p className="text-center text-sm font-semibold leading-6 text-[#212529] cursor-pointer ">
                 &copy; 2021 Your Company, Inc. All rights reserved.
               </p>
             </div>

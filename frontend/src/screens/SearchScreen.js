@@ -129,8 +129,8 @@ export default function SearchScreen() {
         <title>Search Products</title>
       </Helmet>
       <div className="flex min-h-full flex-1 justify-center py-12 gap-6">
-        <div className="w-1/4 bg-[#212529] rounded-md h-full py-4 flex flex-col gap-4">
-          <h3 className="text-lg text-white font-bold px-3 cursor-pointer ">
+        <div className="w-1/4 bg-[#fff] shadow-2xl border  border-gray-200 rounded-none h-full py-4 flex flex-col gap-4">
+          <h3 className="text-lg text-[#212529] font-bold px-3 cursor-pointer ">
             Department
           </h3>
           <ul className="flex flex-col gap-2">
@@ -138,8 +138,8 @@ export default function SearchScreen() {
               <Link
                 className={`block ${
                   category === "all"
-                    ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
-                    : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                    ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-[#fff]"
+                    : "font-semibold hover:font-bold text-sm leading-6 text-[#212529] cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover:text-white"
                 }`}
                 to={getFilterUrl({ category: "all" })}
               >
@@ -151,8 +151,8 @@ export default function SearchScreen() {
                 <Link
                   className={`block ${
                     category === c
-                      ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
-                      : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                      ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-[#fff]"
+                      : "font-semibold hover:font-bold text-sm leading-6 text-[#212529] cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover:text-white"
                   }`}
                   to={getFilterUrl({ category: c })}
                 >
@@ -161,7 +161,7 @@ export default function SearchScreen() {
               </li>
             ))}
           </ul>
-          <h3 className="text-lg text-white font-bold px-3 cursor-pointer">
+          <h3 className="text-lg text-[#212529] font-bold px-3 cursor-pointer">
             Price
           </h3>
           <ul className="flex flex-col gap-2">
@@ -169,8 +169,8 @@ export default function SearchScreen() {
               <Link
                 className={`block ${
                   price === "all"
-                    ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
-                    : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                    ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-[#fff]"
+                    : "font-semibold hover:font-bold text-sm leading-6 text-[#212529] cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover:text-white"
                 }`}
                 to={getFilterUrl({ price: "all" })}
               >
@@ -182,8 +182,8 @@ export default function SearchScreen() {
                 <Link
                   className={`block ${
                     price === p.value
-                      ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
-                      : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                      ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-[#fff]"
+                      : "font-semibold hover:font-bold text-sm leading-6 text-[#212529] cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover:text-white"
                   }`}
                   to={getFilterUrl({ price: p.value })}
                 >
@@ -192,7 +192,7 @@ export default function SearchScreen() {
               </li>
             ))}
           </ul>
-          <h3 className="text-lg text-white font-bold px-3 cursor-pointer">
+          <h3 className="text-lg text-[#212529] font-bold px-3 cursor-pointer">
             Avg. Customer Review
           </h3>
           <ul className="flex ratings flex-col gap-2">
@@ -201,8 +201,8 @@ export default function SearchScreen() {
                 <Link
                   className={`block ${
                     rating === r.rating.toString()
-                      ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
-                      : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                      ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg active-rating bg-orange-600 text-[#fff]"
+                      : "font-semibold hover:font-bold text-sm leading-6 text-[#212529] cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover:text-white"
                   }`}
                   to={getFilterUrl({ rating: r.rating })}
                 >
@@ -214,8 +214,8 @@ export default function SearchScreen() {
               <Link
                 className={`block ${
                   rating === "all"
-                    ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-white"
-                    : "font-semibold hover:font-bold text-sm leading-6 text-white cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover-text-gray-800"
+                    ? "font-bold  text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg active-rating bg-orange-600 text-[#fff]"
+                    : "font-semibold hover:font-bold text-sm leading-6 text-[#212529] cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover:text-white"
                 }`}
                 to={getFilterUrl({ rating: "all" })}
               >
@@ -290,7 +290,7 @@ export default function SearchScreen() {
                         to={getFilterUrl({ page: x + 1 })}
                         className={`${
                           Number(page) === x + 1
-                            ? "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            ? "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-[#212529] focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             : "relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"
                         }`}
                       >
