@@ -73,7 +73,7 @@ export const StoreFrontHeader = () => {
             </div>
             <div className="relative py-32">
               <h1 className="text-white text-6xl font-bold">
-                Where Supply meets demand
+                Where Supply meets demand.
               </h1>
               {/* <button className="inline-block rounded-md border-2  border-orange-600 bg-orange-600 px-8 py-3 text-white hover:bg-orange-600/65 font-bold transition-all">
                   Shop Collection

@@ -98,7 +98,7 @@ export const StoreFrontProducts = () => {
     const cloths = products?.filter((item) => item?.category === "Clothing");
     setClothingProducts(cloths);
     const clothing = products?.filter(
-      (item) => item?.category === "Curated Clothing"
+      (item) => item?.category === "Manufacturers"
     );
     setCuratedClothingProducts(clothing);
   }, [products]);
@@ -240,14 +240,14 @@ export const StoreFrontProducts = () => {
           )}
         </div>
       </div>
-      {/* Curated Clothing */}
+      {/* Manufacturers */}
       <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
         <div className="md:flex md:items-center md:justify-between">
           <h2
             id="favorites-heading"
             className="text-4xl font-bold text-gray-700"
           >
-            Curated Clothing
+            Manufacturers
           </h2>
         </div>
 

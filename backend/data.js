@@ -43,7 +43,7 @@ const data = {
     {
       name: "Levi's Denim Jacket",
       slug: "levis-denim-jacket",
-      category: "Curated Clothing",
+      category: "Manufacturers",
       image: "/images/p1.jpg",
       price: 90,
       countInStock: 15,
@@ -55,7 +55,7 @@ const data = {
     {
       name: "Tommy Hilfiger Polo Shirt",
       slug: "tommy-hilfiger-polo-shirt",
-      category: "Curated Clothing",
+      category: "Manufacturers",
       image: "/images/p3.jpg",
       price: 55,
       countInStock: 10,
