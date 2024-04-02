@@ -4,4 +4,5 @@ export const getError = (error) => {
     : error.message;
 };
 
-export const API_URL = "http://77.37.51.85:5001/";
+// export const API_URL = "http://77.37.51.85:5001/";
+export const API_URL = "http://localhost:5001/";

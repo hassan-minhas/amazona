@@ -9,7 +9,7 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Store } from "./Store";
 import CartScreen from "./screens/CartScreen";
 import SigninScreen from "./screens/SigninScreen";
@@ -42,12 +42,15 @@ import ChatBox from "./components/ChatBox";
 import CategoryMenu from "./components/Categories";
 import StoreFront from "./components/Store-Front";
 import NavBar from "./components/Nav-Bar";
+import CategoryScreen from "./screens/CategoryScreen";
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { fullBox, cart, userInfo } = state;
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+
+  const sideBarRef = useRef(null);
 
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
@@ -68,6 +71,23 @@ function App() {
       }
     };
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
+        // Click occurred outside of the menu, so close the menu
+        setSidebarIsOpen(false);
+      }
+    };
+
+    // Add event listener to handle clicks outside of the menu
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      // Remove event listener when component unmounts
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
   }, []);
 
   return (
@@ -95,6 +115,7 @@ function App() {
           />
         </header>
         <div
+          ref={sideBarRef}
           className={
             sidebarIsOpen
               ? "active-nav fixed side-navbar d-flex justify-content-between flex-wrap flex-column shadow-xl"
@@ -108,16 +129,16 @@ function App() {
               </strong>
             </Nav.Item>
             {categories?.map((category) => (
-              <Nav.Item key={category}>
+              <Nav.Item key={category?._id}>
                 <LinkContainer
                   to={{
                     pathname: "/search",
-                    search: `?category=${category}`,
+                    search: `?category=${category?.name}`,
                   }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
                   <Nav.Link className="text-sm font-semibold leading-6 text-[#212529] cursor-pointer px-3 py-2 transition-all hover:shadow-xl hover:bg-orange-600 hover:text-white">
-                    {category}
+                    {category?.name}
                   </Nav.Link>
                 </LinkContainer>
               </Nav.Item>
@@ -177,6 +198,14 @@ function App() {
                 <AdminRoute>
                   {" "}
                   <DashboardScreen />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/category"
+              element={
+                <AdminRoute>
+                  <CategoryScreen />
                 </AdminRoute>
               }
             />

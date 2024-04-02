@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -9,6 +9,7 @@ import { Store } from "../Store";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { API_URL, getError } from "../utils";
+import ListGroup from "react-bootstrap/ListGroup";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -79,19 +80,25 @@ export default function ProductListScreen(props) {
   const { state } = useContext(Store);
   const { userInfo } = state;
 
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [productList, setProductList] = useState([]);
+
   useEffect(() => {
+    fetchCategories();
     const fetchData = async (seller) => {
       try {
-        const { data } = await axios.get(
-          `${API_URL}api/products/admin?page=${page}&seller=${
-            sellerMode ? userInfo._id : ""
-          }`,
+        const data = await axios.get(
+          // `${API_URL}api/products/admin?page=${page}&seller=${
+          `${API_URL}api/products/`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
         );
 
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
+        setProductList(data?.data);
+        dispatch({ type: "FETCH_SUCCESS", payload: data?.data });
       } catch (err) {}
     };
 
@@ -139,88 +146,423 @@ export default function ProductListScreen(props) {
     }
   };
 
+  const fetchCategories = async () => {
+    const result = await fetch(`${API_URL}api/products/categories`);
+    const categories = await result.json();
+    console.log("categories ", categories);
+    setCategoriesList(categories);
+  };
+
+  const uploadFileHandler = async (e, forImages) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append("file", file);
+
+    try {
+      const data = await axios.post(`${API_URL}api/upload`, bodyFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      console.log("data ", data);
+
+      if (forImages) {
+        setFormData({
+          ...formData,
+          images: [...formData.images, data.secure_url],
+        });
+      } else {
+        setFormData({
+          ...formData,
+          image: data.secure_url,
+        });
+      }
+      toast.success("Image uploaded successfully. click Update to apply it");
+    } catch (err) {
+      toast.error(getError(err));
+    }
+  };
+
+  const deleteFileHandler = async (fileName, f) => {
+    console.log(fileName, f);
+    setFormData({
+      ...formData,
+      images: [
+        ...formData.images,
+        formData.images.filter((x) => x !== fileName),
+      ],
+    });
+    toast.success("Image removed successfully. click Update to apply it");
+  };
+
+  const submitHandler = async () => {
+    console.log("form data ", formData);
+    const result = await fetch(`${API_URL}api/products`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+      body: JSON.stringify(formData), // body data type must match "Content-Type" header
+    }).then((response) => response.json());
+    console.log("request resukt ", result);
+    if (result.message) {
+      setFormData({});
+      setShowForm(false);
+    }
+  };
+
   return (
     <div>
-      <Row>
-        <Col>
-          <h1>Products</h1>
-        </Col>
-        <Col className="col text-end">
-          <div>
-            <Button type="button" onClick={createHandler}>
-              Create Product
-            </Button>
-          </div>
-        </Col>
-      </Row>
+      <div className="container py-6">
+        <div className="flex align-middle justify-between items-center w-full">
+          <h1 className="text-3xl font-bold text-gray-700">Products</h1>
+          <button
+            className="block rounded-md bg-orange-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-500  outline-none "
+            type="button"
+            onClick={() => {
+              setShowForm(true);
+            }}
+          >
+            Create Product
+          </button>
+        </div>
 
-      {loadingCreate && <LoadingBox />}
-      {loadingDelete && <LoadingBox />}
-
-      {loading ? (
-        <LoadingBox />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
-        <>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products?.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
-                  <td>
-                    <Button
-                      type="button"
-                      variant="light"
-                      onClick={() => navigate(`/admin/product/${product._id}`)}
+        {loadingCreate && <LoadingBox />}
+        {loadingDelete && <LoadingBox />}
+        {loading ? (
+          <LoadingBox />
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : !showForm ? (
+          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                     >
-                      <i className="fas fa-edit text-primary"></i>
-                    </Button>
-                    &nbsp;
-                    <Button
-                      type="button"
-                      variant="light"
-                      onClick={() => deleteHandler(product)}
+                      Id
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      <i
-                        className="fa fa-trash text-danger"
-                        aria-hidden="true"
-                      ></i>
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div>
-            {[...Array(pages).keys()]?.map((x) => (
-              <Link
-                className={x + 1 === Number(page) ? "btn text-bold" : "btn"}
-                key={x + 1}
-                to={`${
-                  sellerMode ? `/seller/products/` : `admin/products`
-                }?page=${x + 1}`}
-              >
-                {x + 1}
-              </Link>
-            ))}
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Price
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Category
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Brand
+                    </th>
+                    <th
+                      scope="col"
+                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                    >
+                      <span className="">Actions</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {productList?.map((item) => {
+                    return (
+                      <tr key="{person.email}">
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                          {item?._id}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {item?.name}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {item?.price}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {item?.category}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {item?.brand}
+                        </td>
+                        <td className="relative cursor-pointer whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm flex alinmi items-center gap-3 font-medium sm:pr-0">
+                          <Button
+                            type="button"
+                            variant="light"
+                            onClick={() =>
+                              navigate(`/admin/product/${item._id}`)
+                            }
+                          >
+                            <i className="fas fa-edit text-primary"></i>
+                          </Button>
+                          &nbsp;
+                          <Button
+                            type="button"
+                            variant="light"
+                            onClick={() => deleteHandler(item)}
+                          >
+                            <i
+                              className="fa fa-trash text-danger"
+                              aria-hidden="true"
+                            ></i>
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </>
-      )}
+        ) : (
+          <>
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[500px]">
+              <div className="bg-white px-6 py-12 rounded-lg shadow sm:rounded-lg sm:px-12">
+                <div className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="p_name"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Product Name
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="p_name"
+                        name="p_name"
+                        type="text"
+                        autoComplete="p_name"
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            product_name: e.target.value,
+                          });
+                        }}
+                        required
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="p_price"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Product Price
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="p_price"
+                        name="p_price"
+                        type="text"
+                        autoComplete="p_price"
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            product_price: e.target.value,
+                          });
+                        }}
+                        required
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="p_cat"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Product Category
+                    </label>
+                    <div className="mt-2">
+                      <select
+                        id="p_cat"
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            product_category: e.target.value,
+                          });
+                        }}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      >
+                        {categoriesList?.map((item) => {
+                          return (
+                            <option value={item?.name}>{item?.name}</option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                  {console.log("form data ", formData)}
+                  <div>
+                    <label
+                      htmlFor="p_image"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Product Image
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="p_image"
+                        name="p_image"
+                        type="file"
+                        autoComplete="p_image"
+                        onChange={(e) => {
+                          uploadFileHandler(e);
+                        }}
+                        required
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+
+                  {/* <div>
+                      <label
+                        htmlFor="p_images"
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
+                        Product Additional Image
+                      </label>
+                      <div className="mt-2">
+                        <input
+                          id="p_images"
+                          name="p_images"
+                          multiple
+                          type="file"
+                          autoComplete="p_images"
+                          onChange={(e) => {
+                            uploadFileHandler(e, true);
+                          }}
+                          required
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+
+                      {formData?.images?.length === 0 && (
+                        <MessageBox>No image</MessageBox>
+                      )}
+
+                      <ListGroup variant="flush">
+                        {formData?.images?.map((x) => (
+                          <ListGroup.Item key={x}>
+                            {x}
+                            <Button
+                              variant="light"
+                              onClick={() => deleteFileHandler(x)}
+                            >
+                              <i className="fa fa-times-circle"></i>
+                            </Button>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </div> */}
+
+                  <div>
+                    <label
+                      htmlFor="p_brand"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Product Brand
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="p_brand"
+                        name="p_brand"
+                        type="text"
+                        autoComplete="p_brand"
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            product_brand: e.target.value,
+                          });
+                        }}
+                        required
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="p_stock"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Count in Stock
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="p_stock"
+                        name="p_stock"
+                        type="text"
+                        autoComplete="p_stock"
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            product_stock: e.target.value,
+                          });
+                        }}
+                        required
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="p_description"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Description
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="p_description"
+                        name="p_description"
+                        type="text"
+                        autoComplete="p_description"
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            product_desc: e.target.value,
+                          });
+                        }}
+                        required
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <button
+                      onClick={submitHandler}
+                      type="submit"
+                      className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-bold transition-all leading-6 text-white hover:text-orange-600 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

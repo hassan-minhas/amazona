@@ -150,13 +150,13 @@ export default function SearchScreen() {
               <li key={c}>
                 <Link
                   className={`block ${
-                    category === c
+                    category === c?.name
                       ? "font-bold text-sm leading-6 cursor-pointer px-[20px] py-2 transition-all shadow-lg bg-orange-600 text-[#fff]"
                       : "font-semibold hover:font-bold text-sm leading-6 text-[#212529] cursor-pointer px-[20px] py-2 transition-all hover:shadow-lg hover:bg-orange-600 hover:text-white"
                   }`}
-                  to={getFilterUrl({ category: c })}
+                  to={getFilterUrl({ category: c?.name })}
                 >
-                  {c}
+                  {c?.name}
                 </Link>
               </li>
             ))}
@@ -272,7 +272,7 @@ export default function SearchScreen() {
                 <MessageBox>No Product Found</MessageBox>
               )}
 
-              <div className="-mx-px grid grid-cols-2 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
+              <div className="-mx-px grid grid-cols-1 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
                 {products?.map((product) => (
                   <Product key={product._id} product={product}></Product>
                 ))}
@@ -290,7 +290,7 @@ export default function SearchScreen() {
                         to={getFilterUrl({ page: x + 1 })}
                         className={`${
                           Number(page) === x + 1
-                            ? "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-[#212529] focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            ? "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-[#fff] focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             : "relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"
                         }`}
                       >

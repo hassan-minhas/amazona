@@ -88,6 +88,7 @@ main {
   width: 240px;
   height: 100%;
   position: fixed;
+  z-index: 10000;
   left: -300px;
   background-color: white;
   transition: 0.5s;
@@ -263,4 +264,12 @@ button.thumbnail {
 
 .navbar {
   background-color: white !important;
+}
+
+@media only screen and (max-width:767px) {
+
+  .active-cont {
+    margin-left: 0px !important;
+  }
+
 }

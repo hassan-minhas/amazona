@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect, useReducer } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from "axios";
@@ -53,6 +53,13 @@ export const StoreFrontProducts = () => {
       error: "",
     });
 
+  const [trendingProducts, setTrendingProducts] = useState([]);
+  const [electronicsProducts, setElectronicsProducts] = useState([]);
+  const [furnitureProducts, setFurnitureProducts] = useState([]);
+  const [cosmeticsProducts, setCosmeticsProducts] = useState([]);
+  const [clothingProducts, setClothingProducts] = useState([]);
+  const [curatedClothingProducts, setCuratedClothingProducts] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -71,8 +78,34 @@ export const StoreFrontProducts = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const shuffledProducts = products.sort(() => Math.random() - 0.5);
+    // Select the first 3 products from shuffled array
+    const trending = shuffledProducts.slice(0, 3);
+    setTrendingProducts(trending);
+    const electronics = products?.filter(
+      (item) => item?.category === "Electronics"
+    );
+    setElectronicsProducts(electronics);
+    const furniture = products?.filter(
+      (item) => item?.category === "Furniture"
+    );
+    setFurnitureProducts(furniture);
+    const cosmetics = products?.filter(
+      (item) => item?.category === "Cosmetics"
+    );
+    setCosmeticsProducts(cosmetics);
+    const cloths = products?.filter((item) => item?.category === "Clothing");
+    setClothingProducts(cloths);
+    const clothing = products?.filter(
+      (item) => item?.category === "Curated Clothing"
+    );
+    setCuratedClothingProducts(clothing);
+  }, [products]);
+
   return (
     <section aria-labelledby="trending-heading">
+      {/* Trending */}
       <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
         <div className="md:flex md:items-center md:justify-between">
           <h2
@@ -81,39 +114,157 @@ export const StoreFrontProducts = () => {
           >
             Trending Products
           </h2>
-          <a
-            href="#"
-            className="hidden text-sm font-medium text-orange-600 hover:text-orange-600 md:block"
-          >
-            Shop the collection
-            <span aria-hidden="true"> &rarr;</span>
-          </a>
         </div>
 
-        <div className="products">
+        <div className="block">
           {loading ? (
             <LoadingBox />
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <Row>
-              {products?.map((product) => (
-                <Col xs={6} md={4} lg={3} key={product.slug} className="mb-3">
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+              {trendingProducts?.map((product) => (
+                <div key={product.slug} className="mb-3">
                   <Product product={product} />
-                </Col>
+                </div>
               ))}
-            </Row>
+            </div>
           )}
         </div>
-
-        <div className="mt-8 text-sm md:hidden">
-          <a
-            href="#"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+      </div>
+      {/* Electronics */}
+      <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
+        <div className="md:flex md:items-center md:justify-between">
+          <h2
+            id="favorites-heading"
+            className="text-4xl font-bold text-gray-700"
           >
-            Shop the collection
-            <span aria-hidden="true"> &rarr;</span>
-          </a>
+            Electronics
+          </h2>
+        </div>
+
+        <div className="block">
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+              {electronicsProducts?.map((product) => (
+                <div key={product.slug} className="mb-3">
+                  <Product product={product} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Furniture  */}
+      <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
+        <div className="md:flex md:items-center md:justify-between">
+          <h2
+            id="favorites-heading"
+            className="text-4xl font-bold text-gray-700"
+          >
+            Furniture
+          </h2>
+        </div>
+
+        <div className="block">
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+              {furnitureProducts?.map((product) => (
+                <div key={product.slug} className="mb-3">
+                  <Product product={product} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Cosmetics */}
+      <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
+        <div className="md:flex md:items-center md:justify-between">
+          <h2
+            id="favorites-heading"
+            className="text-4xl font-bold text-gray-700"
+          >
+            Cosmetics
+          </h2>
+        </div>
+
+        <div className="block">
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+              {cosmeticsProducts?.map((product) => (
+                <div key={product.slug} className="mb-3">
+                  <Product product={product} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Clothing */}
+      <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
+        <div className="md:flex md:items-center md:justify-between">
+          <h2
+            id="favorites-heading"
+            className="text-4xl font-bold text-gray-700"
+          >
+            Clothing
+          </h2>
+        </div>
+
+        <div className="block">
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+              {clothingProducts?.map((product) => (
+                <div key={product.slug} className="mb-3">
+                  <Product product={product} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Curated Clothing */}
+      <div className="mx-auto max-w-7xl px-4 py-10 flex flex-col gap-10">
+        <div className="md:flex md:items-center md:justify-between">
+          <h2
+            id="favorites-heading"
+            className="text-4xl font-bold text-gray-700"
+          >
+            Curated Clothing
+          </h2>
+        </div>
+
+        <div className="block">
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+              {curatedClothingProducts?.map((product) => (
+                <div key={product.slug} className="mb-3">
+                  <Product product={product} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -20,6 +20,13 @@ const collections = [
     imageAlt:
       "Person sitting at a wooden desk with paper note organizer, pencil and tablet.",
   },
+  {
+    name: "Clothing",
+    href: "#",
+    imageSrc: "/turkfy/clothing.jpg",
+    imageAlt:
+      "Person sitting at a wooden desk with paper note organizer, pencil and tablet.",
+  },
 ];
 
 export const StoreFrontHeader = () => {
@@ -81,7 +88,7 @@ export const StoreFrontHeader = () => {
             <h2 id="collection-heading" className="sr-only">
               Collections
             </h2>
-            <div className="mx-auto grid max-w-md grid-cols-1 gap-y-6 px-4 sm:max-w-7xl sm:grid-cols-3 sm:gap-x-6 sm:gap-y-0 sm:px-6 lg:gap-x-8 lg:px-8">
+            <div className="mx-auto grid max-w-md grid-cols-1 gap-6 px-4 sm:max-w-7xl sm:grid-cols-2 md:grid-cols-4 sm:px-6 lg:px-8">
               {collections?.map((collection) => (
                 <div
                   key={collection.name}

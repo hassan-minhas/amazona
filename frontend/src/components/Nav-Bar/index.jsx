@@ -38,13 +38,18 @@ function NavBar({
             <span className="-mx-1">Turkfy</span>
           </Navbar.Brand>
         </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle
+          className="text-orange-600 border-orange-600 p-0  min-w-9 min-h-9  hover:border-orange-600 border-1 hover:bg-transparent mr-1 hover:text-orange-600"
+          aria-controls="basic-navbar-nav"
+        >
+          <i className="fas fa-bars "></i>
+        </Navbar.Toggle>
         <Navbar.Collapse id="">
           <div className="container mx-auto w-full">
             <SearchBox />
           </div>
 
-          <Nav className="justify-content-end w-40 min-w-40">
+          <Nav className="justify-content-end sm:pt-0 pt-6 w-40 min-w-40">
             {/* <LinkContainer to="/cart" className="nav-link">
               <Nav.Link className="text-orange-600 flex items-center">
                 <div className="mr-1">Cart</div>
@@ -57,7 +62,7 @@ function NavBar({
             </LinkContainer> */}
             <Link
               to="/cart"
-              className="nav-link text-sm font-semibold leading-6 relative text-[#212529] cursor-pointer flex align-middle justify-center items-center"
+              className="nav-link text-sm font-semibold leading-6 relative w-max text-[#212529] cursor-pointer flex align-middle items-center"
             >
               Cart
               {cart.cartItems.length > 0 && (
@@ -66,7 +71,7 @@ function NavBar({
                 </Badge>
               )}
             </Link>
-            {userInfo ? (
+            {userInfo && !userInfo.isSeller && !userInfo.isAdmin ? (
               <NavDropdown
                 className="text-sm font-semibold leading-6 text-[#212529] cursor-pointer"
                 title={userInfo.name}
@@ -92,14 +97,7 @@ function NavBar({
                   Sign Out
                 </Link>
               </NavDropdown>
-            ) : (
-              <Link
-                className="nav-link text-sm font-semibold leading-6 text-[#212529] cursor-pointer flex align-middle justify-center items-center"
-                to="/signin"
-              >
-                Sign In
-              </Link>
-            )}
+            ) : null}
             {userInfo && userInfo.isSeller && (
               <NavDropdown
                 title="Seller"
@@ -115,6 +113,13 @@ function NavBar({
                 <LinkContainer to="/seller/orders">
                   <NavDropdown.Item>Orders</NavDropdown.Item>
                 </LinkContainer>
+                <Link
+                  className="dropdown-item text-sm font-semibold leading-6 text-gray-800 cursor-pointer "
+                  to="#signout"
+                  onClick={signoutHandler}
+                >
+                  Sign Out
+                </Link>
               </NavDropdown>
             )}
             {userInfo && userInfo.isAdmin && (
@@ -129,6 +134,9 @@ function NavBar({
                 <LinkContainer to="/admin/products">
                   <NavDropdown.Item>Products</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/admin/category">
+                  <NavDropdown.Item>Categories</NavDropdown.Item>
+                </LinkContainer>
                 <LinkContainer to="/admin/orders">
                   <NavDropdown.Item>Orders</NavDropdown.Item>
                 </LinkContainer>
@@ -138,8 +146,23 @@ function NavBar({
                 <LinkContainer to="/support">
                   <NavDropdown.Item>Support</NavDropdown.Item>
                 </LinkContainer>
+                <Link
+                  className="dropdown-item text-sm font-semibold leading-6 text-gray-800 cursor-pointer "
+                  to="#signout"
+                  onClick={signoutHandler}
+                >
+                  Sign Out
+                </Link>
               </NavDropdown>
             )}
+            {!userInfo ? (
+              <Link
+                className="nav-link text-sm font-semibold leading-6 text-[#212529] cursor-pointer flex align-middle items-center"
+                to="/signin"
+              >
+                Sign In
+              </Link>
+            ) : null}
           </Nav>
         </Navbar.Collapse>
       </Container>
