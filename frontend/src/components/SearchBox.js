@@ -15,22 +15,6 @@ export default function SearchBox() {
   };
 
   return (
-    // <Form className="text-orange-600 bg-orange-600 " onSubmit={submitHandler}>
-    //   <InputGroup>
-    //     <FormControl
-    //       type="text"
-    //       name="q"
-    //       id="q"
-    //       onChange={(e) => setQuery(e.target.value)}
-    //       placeholder="search products..."
-    //       aria-label="Search Products"
-    //       aria-describedby="button-search"
-    //     ></FormControl>
-    //     <Button variant="outline-primary" type="submit" id="button-search">
-    //       <i className="fas fa-search text-white"></i>
-    //     </Button>
-    //   </InputGroup>
-    // </Form>
     <Form
       className="flex items-center ml-auto w-full pt-[12px] xl:pt-[0px] "
       onSubmit={submitHandler}
