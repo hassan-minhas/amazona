@@ -38,6 +38,30 @@ const data = {
       name: "Furniture",
       slug: "furniture",
     },
+    {
+      name: "Construction Tools",
+      slug: "construction_tools",
+    },
+    {
+      name: "Industrial Machinery",
+      slug: "industrial_machinery",
+    },
+    {
+      name: "Car accessories",
+      slug: "car_accessories",
+    },
+    {
+      name: "Sports & Entertainment",
+      slug: "sports_entertainment",
+    },
+    {
+      name: "Home and garden",
+      slug: "home_and_garden",
+    },
+    {
+      name: "Gaming",
+      slug: "gaming",
+    },
   ],
   products: [
     {

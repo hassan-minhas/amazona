@@ -16,4 +16,10 @@ seedRouter.get("/", async (req, res) => {
   res.send({ createProducts, createUsers, createCategory });
 });
 
+seedRouter.get("/categories", async (req, res) => {
+  await Category.deleteMany({});
+  const createCategory = await Category.insertMany(data.categories);
+  res.send({ createCategory });
+});
+
 export default seedRouter;

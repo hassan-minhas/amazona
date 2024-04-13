@@ -32,7 +32,15 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.change-dropdown-position .dropdown-menu.show,
+.dropdown-menu[data-bs-popper] {
+  left: unset !important;
+  right: 20%;
 }
