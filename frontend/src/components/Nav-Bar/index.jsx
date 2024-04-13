@@ -89,7 +89,7 @@ function NavBar({
                   {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                 </Badge>
               )}
-            </Link>
+            </Link>            
             {userInfo && !userInfo.isSeller && !userInfo.isAdmin ? (
               <NavDropdown
                 className="text-sm font-semibold leading-6 text-[#212529] cursor-pointer"

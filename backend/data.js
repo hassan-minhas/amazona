@@ -7,12 +7,36 @@ const data = {
       email: "admin@example.com",
       password: bcrypt.hashSync("123456"),
       isAdmin: true,
+      isSeller: true,
     },
     {
       name: "User",
       email: "user@example.com",
       password: bcrypt.hashSync("123456"),
       isAdmin: false,
+      isSeller: true,
+    },
+  ],
+  categories: [
+    {
+      name: "Clothing",
+      slug: "clothing",
+    },
+    {
+      name: "Manufacturers",
+      slug: "manufacturers",
+    },
+    {
+      name: "Electronics",
+      slug: "electronics",
+    },
+    {
+      name: "Cosmetics",
+      slug: "cosmetics",
+    },
+    {
+      name: "Furniture",
+      slug: "furniture",
     },
   ],
   products: [

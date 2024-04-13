@@ -34,7 +34,7 @@ export const StoreFrontHeader = () => {
     <div className="bg-white">
       <main>
         {/* Hero section */}
-        <div className="relative">
+        <div className="relative">                  
           {/* Background image and overlap */}
           <div
             aria-hidden="true"

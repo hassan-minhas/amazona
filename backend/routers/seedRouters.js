@@ -2,6 +2,7 @@ import express from "express";
 import Product from "../models/productModel.js";
 import data from "../data.js";
 import User from "../models/userModel.js";
+import Category from "../models/productCategoryModel.js";
 
 const seedRouter = express.Router();
 
@@ -10,7 +11,9 @@ seedRouter.get("/", async (req, res) => {
   const createProducts = await Product.insertMany(data.products);
   await User.deleteMany({});
   const createUsers = await User.insertMany(data.users);
-  res.send({ createProducts, createUsers });
+  await Category.deleteMany({});
+  const createCategory = await Category.insertMany(data.categories);
+  res.send({ createProducts, createUsers, createCategory });
 });
 
 export default seedRouter;
