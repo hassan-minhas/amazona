@@ -52,7 +52,7 @@ export default function CartScreen() {
           {cartAddError && (
             <MessageBox variant="danger">{cartAddError}</MessageBox>
           )}
-          <div className="flex justify-between lg:flex-row md:flex-col gap-10">
+          <div className="flex justify-between xl:flex-row lg:flex-row md:flex-col flex-col gap-10">
             {/* product list  */}
             <div className="flex w-full flex-col gap-10">
               <div className="divide-y divide-gray-200 border-b border-t border-gray-200">
