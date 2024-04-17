@@ -50,23 +50,23 @@ const Product = (props) => {
     <>
       <div
         key={product?.slug}
-        className="group relative border border-slate-900/6 p-4 sm:p-6"
+        className="group relative border border-slate-900/6 p-0 sm:p-6"
       >
-        <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
+        <div className="aspect-h-1 aspect-w-1 overflow-hidden sm:rounded-lg bg-gray-200 group-hover:opacity-75">
           <img
             src={product?.image}
             alt={product?.name}
             className="h-full w-full object-contain object-center"
           />
         </div>
-        <div className="py-6 text-center">
+        <div className="sm:py-6 py-2 text-center">
           <h3 className="text-sm font-medium text-gray-900">
             <Link to={`/product/${product?.slug}`}>
               {/* <span aria-hidden="true" className="absolute inset-0" /> */}
               {product?.name}
             </Link>
           </h3>
-          <div className="mt-3 flex flex-col items-center">
+          <div className="sm:mt-3 mt-1 flex flex-col items-center">
             <p className="sr-only">{product?.rating} out of 5 stars</p>
             <div className="flex items-center">
               <Rating
@@ -78,7 +78,7 @@ const Product = (props) => {
               {product?.numReviews} reviews
             </p>
           </div>
-          <p className="mt-3 text-base font-medium text-gray-900">
+          <p className="sm:mt-3 mt-1 text-base font-medium text-gray-900">
             ${product?.price}
           </p>
         </div>
@@ -93,7 +93,7 @@ const Product = (props) => {
               product?.countInStock === 0
                 ? "cursor-not-allowed"
                 : "cursor-pointer"
-            }  relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm w-max mx-auto font-medium text-gray-900 hover:bg-gray-200`}
+            }  relative flex items-center justify-center sm:rounded-md sm:border border-transparent bg-gray-100 px-3 py-2 text-sm sm:w-max w-full mx-auto font-medium text-gray-900 hover:bg-gray-200`}
           >
             {product?.countInStock === 0 ? (
               "Out of stock"

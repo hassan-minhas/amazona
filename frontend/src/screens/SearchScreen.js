@@ -78,6 +78,8 @@ export default function SearchScreen() {
   const order = sp.get("order") || "newest";
   const page = sp.get("page") || 1;
 
+  const [showFilter, setShowFilter] = useState(false);
+
   const [{ loading, error, products, pages, countProducts }, dispatch] =
     useReducer(reducer, {
       loading: true,
@@ -128,8 +130,29 @@ export default function SearchScreen() {
       <Helmet>
         <title>Search Products</title>
       </Helmet>
-      <div className="flex min-h-full flex-1 justify-center py-12 gap-6">
-        <div className="w-1/4 bg-[#fff] shadow-2xl border  border-gray-200 rounded-none h-full py-4 flex flex-col gap-4">
+      <div className="flex min-h-full flex-1 md:flex-row flex-col justify-center py-12 sm:gap-6 gap-4">
+        <button
+          variant="light"
+          onClick={() => setShowFilter(!showFilter)}
+          className="text-orange-600 md:hidden rounded-md ml-auto border-orange-600 p-0  min-w-9 min-h-9 w-max  hover:border-orange-600 border-1 hover:bg-transparent mr-1 hover:text-orange-600"
+        >
+          <i className="fas fa-bars "></i>
+        </button>
+
+        <div
+          className={`lg:w-1/4 md:w-2/4 w-full ${
+            showFilter
+              ? "fixed top-0 right-0 z-40 max-h-screen overflow-auto"
+              : "fixed top-0 right-[-1000px] z-40 max-h-screen overflow-auto"
+          } bg-[#fff] shadow-2xl border md:relative md:right-0 border-gray-200 transition-all duration-1000 rounded-none h-full py-4 flex flex-col gap-4`}
+        >
+          <button
+            variant="light"
+            onClick={() => setShowFilter(!showFilter)}
+            className="text-orange-600 ml-auto md:hidden rounded-md border-orange-600 p-0  min-w-9 min-h-9 w-max  hover:border-orange-600 border-1 hover:bg-transparent mr-1 hover:text-orange-600"
+          >
+            <i className="fas fa-times "></i>
+          </button>
           <h3 className="text-lg text-[#212529] font-bold px-3 cursor-pointer ">
             Department
           </h3>
@@ -224,15 +247,15 @@ export default function SearchScreen() {
             </li>
           </ul>
         </div>
-        <div className="w-3/4 pl-4">
+        <div className="md:w-3/4 w-full pl-4">
           {loading ? (
             <LoadingBox />
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
             <>
-              <div className="flex justify-between items-center mb-3">
-                <div className="text-lg font-bold text-gray-800">
+              <div className="flex justify-between md:flex-row flex-col gap-2 items-center mb-3">
+                <div className="text-base w-full font-normal text-gray-800">
                   {countProducts === 0 ? "No" : countProducts} Results
                   {query !== "all" && `: ${query}`}
                   {category !== "all" && `: ${category}`}
@@ -250,12 +273,10 @@ export default function SearchScreen() {
                     </button>
                   )}
                 </div>
-                <div className="text-right flex gap-3 align-middle items-center">
-                  <span className="text-gray-800 font-bold text-lg">
-                    Sort by
-                  </span>
+                <div className="text-right  w-full flex gap-3 align-middle items-center">
+                  <span className="text-gray-800">Sort by</span>
                   <select
-                    className="border rounded-md py-2 text-gray-800 font-semibold text-lg px-4"
+                    className="border rounded-md py-2 text-gray-800 font-semibold text-base px-4"
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }));
@@ -272,7 +293,7 @@ export default function SearchScreen() {
                 <MessageBox>No Product Found</MessageBox>
               )}
 
-              <div className="-mx-px grid grid-cols-1 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
+              <div className=" grid grid-cols-2 gap-2 sm:gap-4 sm:mx-0 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
                 {products?.map((product) => (
                   <Product key={product._id} product={product}></Product>
                 ))}
@@ -281,7 +302,7 @@ export default function SearchScreen() {
               <div className="mt-4 flex justify-center">
                 <div>
                   <nav
-                    className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+                    className="flex rounded-md shadow-sm"
                     aria-label="Pagination"
                   >
                     {[...Array(pages).keys()]?.map((x) => (
@@ -291,7 +312,7 @@ export default function SearchScreen() {
                         className={`${
                           Number(page) === x + 1
                             ? "relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-[#fff] focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            : "relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"
+                            : "relative items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 inline-flex"
                         }`}
                       >
                         {x + 1}

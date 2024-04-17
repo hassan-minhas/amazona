@@ -22,7 +22,7 @@ function NavBar({
   categories,
 }) {
   return (
-    <Navbar bg="light" variant="light" className="py-3" expand="lg">
+    <Navbar bg="light" variant="light" className="py-3 shadow-lg " expand="lg">
       <Container>
         <Button
           variant="light"
@@ -78,7 +78,7 @@ function NavBar({
             <SearchBox />
           </div>
 
-          <Nav className="sm:justify-content-end justify-center gap-3 flex-row sm:pt-0 pt-6 sm:w-40 min-w-40 w-full">
+          <Nav className="sm:justify-content-end justify-center sm:items-center items-start gap-3 flex-row sm:pt-0 pt-6 sm:w-40 min-w-40 w-full">
             <Link
               to="/cart"
               className="nav-link text-sm font-semibold leading-6 relative w-max text-[#212529] cursor-pointer flex align-middle items-center"

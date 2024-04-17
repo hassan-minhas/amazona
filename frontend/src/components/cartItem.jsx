@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CartItem = ({ product, index, updateCartHandler, removeItemHandler }) => {
   return (
-    <div key={index} className="flex py-6 sm:py-10">
+    <div key={index} className="flex py-6 sm:py-10 gap-4 flex-col md:flex-row">
       <div className="flex-shrink-0">
         <img
           src={product.image}
@@ -11,7 +11,7 @@ const CartItem = ({ product, index, updateCartHandler, removeItemHandler }) => {
           className="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48"
         />
       </div>
-      <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
+      <div className="md:ml-4 ml-0 flex flex-1 flex-col justify-between sm:ml-6">
         <div className="relative pr-9 flex flex-col justify-between h-full">
           <div className="flex justify-between flex-col gap-2">
             <div className="flex justify-between flex-col">
@@ -38,7 +38,7 @@ const CartItem = ({ product, index, updateCartHandler, removeItemHandler }) => {
           </div>
           {updateCartHandler && removeItemHandler ? (
             <>
-              <div className="flex gap-2 justify-between items-center">
+              <div className="flex gap-2 justify-between mt-4 md:mt-0 items-center">
                 <div className="flex gap-2 items-center">
                   <div
                     className={`h-10 w-10 rounded-full ${

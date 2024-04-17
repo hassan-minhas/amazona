@@ -122,7 +122,7 @@ export const StoreFrontProducts = () => {
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-2 sm:gap-4">
               {trendingProducts?.map((product) => (
                 <div key={product.slug} className="mb-3">
                   <Product product={product} />
@@ -149,7 +149,7 @@ export const StoreFrontProducts = () => {
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-2 sm:gap-4">
               {electronicsProducts?.map((product) => (
                 <div key={product.slug} className="mb-3">
                   <Product product={product} />
@@ -176,7 +176,7 @@ export const StoreFrontProducts = () => {
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-2 sm:gap-4">
               {furnitureProducts?.map((product) => (
                 <div key={product.slug} className="mb-3">
                   <Product product={product} />
@@ -203,7 +203,7 @@ export const StoreFrontProducts = () => {
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-2 sm:gap-4">
               {cosmeticsProducts?.map((product) => (
                 <div key={product.slug} className="mb-3">
                   <Product product={product} />
@@ -230,7 +230,7 @@ export const StoreFrontProducts = () => {
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-2 sm:gap-4">
               {clothingProducts?.map((product) => (
                 <div key={product.slug} className="mb-3">
                   <Product product={product} />
@@ -257,7 +257,7 @@ export const StoreFrontProducts = () => {
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-2 sm:gap-4">
               {curatedClothingProducts?.map((product) => (
                 <div key={product.slug} className="mb-3">
                   <Product product={product} />
