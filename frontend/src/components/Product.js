@@ -50,7 +50,7 @@ const Product = (props) => {
     <>
       <div
         key={product?.slug}
-        className="group relative border border-slate-900/6 p-0 sm:p-6"
+        className="group relative border border-slate-900/6 p-1 md:p-6 lg:p-6 xsl:p-6"
       >
         <div className="aspect-h-1 aspect-w-1 overflow-hidden sm:rounded-lg bg-gray-200 group-hover:opacity-75">
           <img
