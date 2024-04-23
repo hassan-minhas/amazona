@@ -84,6 +84,7 @@ export default function ProductListScreen(props) {
   const [formData, setFormData] = useState({});
   const [categoriesList, setCategoriesList] = useState([]);
   const [productList, setProductList] = useState([]);
+  const [produdtImageUrl, setProductImageUrl] = useState([]);
 
   useEffect(() => {
     fetchCategories();
@@ -96,8 +97,16 @@ export default function ProductListScreen(props) {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
         );
-
-        setProductList(data?.data);
+        console.log("userinfo ", userInfo);
+        if (userInfo && userInfo?.isAdmin) {
+          setProductList(data?.data);
+        } else if (userInfo && userInfo?.isSeller) {
+          const sellerId = userInfo?._id;
+          const sellerProducts = data?.data?.filter(
+            (item) => item?.userId == sellerId
+          );
+          setProductList(sellerProducts);
+        }
         dispatch({ type: "FETCH_SUCCESS", payload: data?.data });
       } catch (err) {}
     };
@@ -107,7 +116,7 @@ export default function ProductListScreen(props) {
     } else {
       fetchData();
     }
-  }, [page, userInfo, successDelete, sellerMode]);
+  }, [page, userInfo, successDelete, sellerMode, showForm]);
 
   const createHandler = async () => {
     if (window.confirm("Are you sure to create?")) {
@@ -153,35 +162,44 @@ export default function ProductListScreen(props) {
     setCategoriesList(categories);
   };
 
-  const uploadFileHandler = async (e, forImages) => {
+  const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append("file", file);
+    const reader = new FileReader();
 
-    try {
-      const data = await axios.post(`${API_URL}api/upload`, bodyFormData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      console.log("data ", data);
+    reader.onload = () => {
+      const result = reader.result;
+      setProductImageUrl(result);
+    };
 
-      if (forImages) {
-        setFormData({
-          ...formData,
-          images: [...formData.images, data.secure_url],
-        });
-      } else {
-        setFormData({
-          ...formData,
-          image: data.secure_url,
-        });
-      }
-      toast.success("Image uploaded successfully. click Update to apply it");
-    } catch (err) {
-      toast.error(getError(err));
-    }
+    reader.readAsDataURL(file);
+    // const file = e.target.files[0];
+    // const bodyFormData = new FormData();
+    // bodyFormData.append("file", file);
+
+    // try {
+    //   const data = await axios.post(`${API_URL}api/upload`, bodyFormData, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //       authorization: `Bearer ${userInfo.token}`,
+    //     },
+    //   });
+    //   console.log("data ", data);
+
+    //   if (forImages) {
+    //     setFormData({
+    //       ...formData,
+    //       images: [...formData.images, data.secure_url],
+    //     });
+    //   } else {
+    //     setFormData({
+    //       ...formData,
+    //       image: data.secure_url,
+    //     });
+    //   }
+    //   toast.success("Image uploaded successfully. click Update to apply it");
+    // } catch (err) {
+    //   toast.error(getError(err));
+    // }
   };
 
   const deleteFileHandler = async (fileName, f) => {
@@ -197,7 +215,8 @@ export default function ProductListScreen(props) {
   };
 
   const submitHandler = async () => {
-    console.log("form data ", formData);
+    formData.image = produdtImageUrl;
+    formData.userId = userInfo?._id;
     const result = await fetch(`${API_URL}api/products`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -285,6 +304,15 @@ export default function ProductListScreen(props) {
                     return (
                       <tr key="{person.email}">
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                          <div className="min-w-20 min-h-20 h-20 w-20 relative">
+                            <img
+                              src={item?.image}
+                              className="absolute inset-0 object-cover w-full h-full"
+                              alt={item?.name}
+                            />
+                          </div>
+                        </td>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                           {item?._id}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -303,8 +331,20 @@ export default function ProductListScreen(props) {
                           <Button
                             type="button"
                             variant="light"
-                            onClick={() =>
-                              navigate(`/admin/product/${item._id}`)
+                            onClick={
+                              userInfo
+                                ? userInfo?.isAdmin
+                                  ? () => {
+                                      navigate(`/admin/product/${item._id}`);
+                                    }
+                                  : userInfo?.isSeller
+                                  ? () => {
+                                      navigate(`/seller/product/${item._id}`);
+                                    }
+                                  : () => {
+                                      return true;
+                                    }
+                                : null
                             }
                           >
                             <i className="fas fa-edit text-primary"></i>
@@ -409,7 +449,6 @@ export default function ProductListScreen(props) {
                       </select>
                     </div>
                   </div>
-                  {console.log("form data ", formData)}
                   <div>
                     <label
                       htmlFor="p_image"

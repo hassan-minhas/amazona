@@ -273,6 +273,15 @@ function App() {
               }
             />
             <Route
+              path="/seller/product/:id"
+              element={
+                <SellerRoute>
+                  {" "}
+                  <ProductEditScreen />
+                </SellerRoute>
+              }
+            />
+            <Route
               path="/seller/orders"
               element={
                 <SellerRoute>

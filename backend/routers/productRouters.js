@@ -18,6 +18,24 @@ productRouter.get("/", async (req, res) => {
   res.send(products);
 });
 
+productRouter.get("/seller", async (req, res) => {
+  // const seller = req.query.seller || "";
+  //   const sellerFilter = seller ? { seller } : {};
+  const sellerId = req.query.id;
+  //   const products = await Product.find({ ...sellerFilter }).populate(
+  //     "seller",
+  //     "seller.name seller.logo"
+  //   );
+  const products = await Product.find();
+  const sellerProduct = products?.filter((item) => item?.userId === sellerId);
+  // console.log("sellerProduct ", sellerProduct);
+  if (sellerProduct) {
+    res.send(sellerProduct);
+  } else {
+    res.status(404).send({ message: "Products not found for the seller" });
+  }
+});
+
 productRouter.post(
   "/",
   isAuth,
@@ -25,9 +43,10 @@ productRouter.post(
   expressAsyncHandler(async (req, res) => {
     const newProduct = new Product({
       name: req.body.product_name,
+      userId: req.body.userId,
       seller: req.user._id,
       slug: req.body.product_name.toLowerCase().replaceAll(" ", "_"),
-      image: "/images/p1.jpg",
+      image: req.body.image,
       price: req.body.product_price,
       category: req.body.product_category,
       brand: req.body.product_brand,
@@ -36,7 +55,6 @@ productRouter.post(
       numReviews: 0,
       description: req.body.product_desc,
     });
-    console.log("new Product ", newProduct);
     const product = await newProduct.save();
 
     res.send({ message: "Product Created", product });
@@ -53,6 +71,7 @@ productRouter.put(
 
     if (product) {
       product.name = req.body.name;
+      product.userId = req.body.userId;
       product.slug = req.body.slug;
       product.price = req.body.price;
       product.image = req.body.image;

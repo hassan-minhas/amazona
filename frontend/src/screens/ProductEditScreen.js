@@ -99,6 +99,7 @@ export default function ProductEditScreen() {
         {
           _id: productId,
           name,
+          userId: userInfo._id,
           slug,
           price,
           image,
@@ -116,7 +117,7 @@ export default function ProductEditScreen() {
         type: "UPDATE_SUCCESS",
       });
       toast.success("Product updated successfully");
-      navigate("/admin/products");
+      navigate(userInfo?.isAdmin ? "/admin/products" : "/seller/products");
     } catch (err) {
       toast.error(getError(err));
       dispatch({ type: "UPDATE_FAIL" });
@@ -125,30 +126,39 @@ export default function ProductEditScreen() {
 
   const uploadFileHandler = async (e, forImages) => {
     const file = e.target.files[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append("file", file);
+    const reader = new FileReader();
 
-    try {
-      dispatch({ type: "UPLOAD_REQUEST" });
+    reader.onload = () => {
+      const result = reader.result;
+      setImage(result);
+    };
 
-      const { data } = await axios.post(`${API_URL}api/upload`, bodyFormData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      dispatch({ type: "UPLOAD_SUCCESS" });
+    reader.readAsDataURL(file);
+    // const file = e.target.files[0];
+    // const bodyFormData = new FormData();
+    // bodyFormData.append("file", file);
 
-      if (forImages) {
-        setImages([...images, data.secure_url]);
-      } else {
-        setImage(data.secure_url);
-      }
-      toast.success("Image uploaded successfully. click Update to apply it");
-    } catch (err) {
-      toast.error(getError(err));
-      dispatch({ type: "UPLOAD_FAIL", payload: getError(err) });
-    }
+    // try {
+    //   dispatch({ type: "UPLOAD_REQUEST" });
+
+    //   const { data } = await axios.post(`${API_URL}api/upload`, bodyFormData, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //       authorization: `Bearer ${userInfo.token}`,
+    //     },
+    //   });
+    //   dispatch({ type: "UPLOAD_SUCCESS" });
+
+    //   if (forImages) {
+    //     setImages([...images, data.secure_url]);
+    //   } else {
+    //     setImage(data.secure_url);
+    //   }
+    //   toast.success("Image uploaded successfully. click Update to apply it");
+    // } catch (err) {
+    //   toast.error(getError(err));
+    //   dispatch({ type: "UPLOAD_FAIL", payload: getError(err) });
+    // }
   };
 
   const deleteFileHandler = async (fileName, f) => {
@@ -198,18 +208,25 @@ export default function ProductEditScreen() {
           </Form.Group>
           <Form.Group className="mb-3" controlId="image">
             <Form.Label>Image File</Form.Label>
-            <Form.Control
+            <div className="min-w-20 min-h-20 h-20 w-20 relative">
+              <img
+                src={image}
+                className="absolute inset-0 object-cover w-full h-full"
+                alt={name}
+              />
+            </div>
+            {/* <Form.Control
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
-            />
+            /> */}
           </Form.Group>
           <Form.Group className="mb-3" controlId="imageFile">
             <Form.Label>Upload Image</Form.Label>
             <Form.Control type="file" onChange={uploadFileHandler} />
             {loadingUpload && <LoadingBox />}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="additionalImage">
+          {/* <Form.Group className="mb-3" controlId="additionalImage">
             <Form.Label>Additional Image</Form.Label>
             {images.length === 0 && <MessageBox>No image</MessageBox>}
             <ListGroup variant="flush">
@@ -230,7 +247,7 @@ export default function ProductEditScreen() {
               onChange={(e) => uploadFileHandler(e, true)}
             />
             {loadingUpload && <LoadingBox />}
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group className="mb-3" controlId="category">
             <Form.Label>Category</Form.Label>
             <Form.Control

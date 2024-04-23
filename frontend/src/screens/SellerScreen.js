@@ -48,9 +48,15 @@ export default function SellerScreen(props) {
     const fetchData = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        const result = await axios.get(
-          `${API_URL}api/products?seller=${sellerId}`
-        );
+        // const result = await axios.get(
+        //   `${API_URL}api/products?seller=${sellerId}`
+        // );
+        const result = await axios.get(`${API_URL}api/products/seller`, {
+          params: {
+            id: sellerId,
+          },
+        });
+
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
 
         dispatch({ type: "FETCH_SELLER_REQUEST" });
