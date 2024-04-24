@@ -35,7 +35,7 @@ const corsOptions = {
 
 const app = express();
 app.use(cors(corsOptions));
-app.use(express.json({ limit: "50mb" })); // Default is 100kb
+app.use(express.json({ limit: "500mb" })); // Default is 100kb
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

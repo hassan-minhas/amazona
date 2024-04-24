@@ -97,7 +97,6 @@ export default function ProductListScreen(props) {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
         );
-        console.log("userinfo ", userInfo);
         if (userInfo && userInfo?.isAdmin) {
           setProductList(data?.data);
         } else if (userInfo && userInfo?.isSeller) {
@@ -140,18 +139,17 @@ export default function ProductListScreen(props) {
   };
 
   const deleteHandler = async (product) => {
-    if (window.confirm("Are you sure to delete?")) {
-      try {
-        await axios.delete(`${API_URL}api/products/${product._id}`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
-
-        toast.success("product deleted successfully");
-        dispatch({ type: "DELETE_SUCCESS" });
-      } catch (err) {
-        toast.error(getError(error));
-        dispatch({ type: "DELETE_FAIL" });
-      }
+    try {
+      const data = await axios.delete(`${API_URL}api/products/${product._id}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+      console.log("data ", data);
+      setProductList(data?.data);
+      toast.success("product deleted successfully");
+      dispatch({ type: "DELETE_SUCCESS" });
+    } catch (err) {
+      toast.error(getError(error));
+      dispatch({ type: "DELETE_FAIL" });
     }
   };
 
