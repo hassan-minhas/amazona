@@ -55,6 +55,7 @@ productRouter.post(
       numReviews: 0,
       description: req.body.product_desc,
     });
+    console.log("newProduct ", newProduct);
     const product = await newProduct.save();
     console.log("product ", product);
     res.send({ message: "Product Created", product });

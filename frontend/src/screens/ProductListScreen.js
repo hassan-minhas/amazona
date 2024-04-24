@@ -144,7 +144,15 @@ export default function ProductListScreen(props) {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       console.log("data ", data);
-      setProductList(data?.data);
+      if (userInfo && userInfo?.isAdmin) {
+        setProductList(data?.data);
+      } else if (userInfo && userInfo?.isSeller) {
+        const sellerId = userInfo?._id;
+        const sellerProducts = data?.data?.filter(
+          (item) => item?.userId == sellerId
+        );
+        setProductList(sellerProducts);
+      }
       toast.success("product deleted successfully");
       dispatch({ type: "DELETE_SUCCESS" });
     } catch (err) {
