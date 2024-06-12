@@ -1,12 +1,7 @@
 import { useContext } from "react";
-import Button from "react-bootstrap/esm/Button";
-import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/esm/Col";
-import Row from "react-bootstrap/esm/Row";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MessageBox from "../components/MessageBox";
-import ListGroup from "react-bootstrap/ListGroup";
 import { Store } from "../Store";
 import axios from "axios";
 import CartItem from "../components/cartItem";
@@ -58,6 +53,7 @@ export default function CartScreen() {
               <div className="divide-y divide-gray-200 border-b border-t border-gray-200">
                 {cartItems?.map((product, index) => (
                   <CartItem
+                    key={`product-${index + 1}`}
                     product={product}
                     index={index}
                     updateCartHandler={updateCartHandler}

@@ -187,18 +187,22 @@ const ProductScreen = () => {
           <Card>
             <Card.Body>
               <ListGroup variant="flush">
-                <ListGroup.Item>Seller </ListGroup.Item>
-                <ListGroup.Item>
-                  <Link to={`/seller/${product.seller._id}`}>
-                    {product.seller.seller.name}
-                  </Link>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Rating
-                    rating={product.seller.seller.rating}
-                    numReviews={product.seller.seller.numReviews}
-                  ></Rating>
-                </ListGroup.Item>
+                {product?.seller && (
+                  <>
+                    <ListGroup.Item>Seller </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Link to={`/seller/${product.seller?._id}`}>
+                        {product.seller?.seller?.name}
+                      </Link>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Rating
+                        rating={product.seller.seller.rating}
+                        numReviews={product.seller.seller.numReviews}
+                      ></Rating>
+                    </ListGroup.Item>
+                  </>
+                )}
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
