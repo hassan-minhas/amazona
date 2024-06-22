@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
@@ -85,9 +91,8 @@ export default function ProductListScreen(props) {
   const [categoriesList, setCategoriesList] = useState([]);
   const [productList, setProductList] = useState([]);
   const [produdtImageUrl, setProductImageUrl] = useState([]);
-  const [submitDisabled, setSubmitDisabled] = useState(true);
 
-  useEffect(() => {
+  const submitDisabled = useMemo(() => {
     const {
       product_name,
       product_brand,
@@ -96,7 +101,7 @@ export default function ProductListScreen(props) {
       product_stock,
       product_price,
     } = formData;
-    setSubmitDisabled(
+    return Boolean(
       !product_name ||
         !product_brand ||
         !product_category ||
@@ -257,7 +262,6 @@ export default function ProductListScreen(props) {
     if (result.message) {
       setFormData({});
       setShowForm(false);
-      setSubmitDisabled(true);
     }
   };
 
