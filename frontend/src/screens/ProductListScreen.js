@@ -143,7 +143,6 @@ export default function ProductListScreen(props) {
       const data = await axios.delete(`${API_URL}api/products/${product._id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
-      console.log("data ", data);
       if (userInfo && userInfo?.isAdmin) {
         setProductList(data?.data);
       } else if (userInfo && userInfo?.isSeller) {
@@ -164,8 +163,8 @@ export default function ProductListScreen(props) {
   const fetchCategories = async () => {
     const result = await fetch(`${API_URL}api/products/categories`);
     const categories = await result.json();
-    console.log("categories ", categories);
     setCategoriesList(categories);
+    setFormData({ ...formData, product_category: categories[0] });
   };
 
   const uploadFileHandler = async (e) => {

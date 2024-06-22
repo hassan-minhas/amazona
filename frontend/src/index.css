@@ -273,3 +273,20 @@ button.thumbnail {
   }
 
 }
+
+  .product-review-container {
+    padding: 0px 16px;
+  }
+
+  .product-screen-container {
+    padding: 24px 15px;
+  }
+
+  .product-preview-image {
+    max-width: 150px;
+  }
+}
+
+.review-heading {
+  margin-bottom: 5px;
+}
