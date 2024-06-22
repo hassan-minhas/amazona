@@ -85,6 +85,27 @@ export default function ProductListScreen(props) {
   const [categoriesList, setCategoriesList] = useState([]);
   const [productList, setProductList] = useState([]);
   const [produdtImageUrl, setProductImageUrl] = useState([]);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
+
+  useEffect(() => {
+    const {
+      product_name,
+      product_brand,
+      product_category,
+      product_desc,
+      product_stock,
+      product_price,
+    } = formData;
+    setSubmitDisabled(
+      !product_name ||
+        !product_brand ||
+        !product_category ||
+        !product_desc ||
+        !product_stock ||
+        !product_price ||
+        !produdtImageUrl
+    );
+  }, [formData, produdtImageUrl]);
 
   useEffect(() => {
     fetchCategories();
@@ -169,6 +190,7 @@ export default function ProductListScreen(props) {
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
+    if (!file) return;
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -235,6 +257,7 @@ export default function ProductListScreen(props) {
     if (result.message) {
       setFormData({});
       setShowForm(false);
+      setSubmitDisabled(true);
     }
   };
 
@@ -383,7 +406,7 @@ export default function ProductListScreen(props) {
                       htmlFor="p_name"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Product Name
+                      Product Name*
                     </label>
                     <div className="mt-2">
                       <input
@@ -408,7 +431,7 @@ export default function ProductListScreen(props) {
                       htmlFor="p_price"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Product Price
+                      Product Price*
                     </label>
                     <div className="mt-2">
                       <input
@@ -433,7 +456,7 @@ export default function ProductListScreen(props) {
                       htmlFor="p_cat"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Product Category
+                      Product Category*
                     </label>
                     <div className="mt-2">
                       <select
@@ -459,7 +482,7 @@ export default function ProductListScreen(props) {
                       htmlFor="p_image"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Product Image
+                      Product Image*
                     </label>
                     <div className="mt-2">
                       <input
@@ -522,7 +545,7 @@ export default function ProductListScreen(props) {
                       htmlFor="p_brand"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Product Brand
+                      Product Brand*
                     </label>
                     <div className="mt-2">
                       <input
@@ -547,7 +570,7 @@ export default function ProductListScreen(props) {
                       htmlFor="p_stock"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Count in Stock
+                      Count in Stock*
                     </label>
                     <div className="mt-2">
                       <input
@@ -572,7 +595,7 @@ export default function ProductListScreen(props) {
                       htmlFor="p_description"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Description
+                      Description*
                     </label>
                     <div className="mt-2">
                       <input
@@ -596,6 +619,7 @@ export default function ProductListScreen(props) {
                     <button
                       onClick={submitHandler}
                       type="submit"
+                      disabled={submitDisabled}
                       className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-bold transition-all leading-6 text-white hover:text-orange-600 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Create
