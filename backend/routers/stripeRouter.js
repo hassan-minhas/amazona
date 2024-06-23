@@ -13,7 +13,6 @@ const stripeRouter = express.Router();
 
 stripeRouter.post(
   "/create-payment-intent",
-  isAuth,
   expressAsyncHandler(async (req, res) => {
     const { totalPrice } = req.body;
     console.log("totalPrice", totalPrice);

@@ -315,10 +315,10 @@ export default function OrderScreen() {
                 </ListGroup.Item>
                 {!order.isPaid && (
                   <ListGroup.Item>
-                    <StripePaymentForm
+                    {/* <StripePaymentForm
                       totalPrice={order.totalPrice.toFixed(2)}
                       name={order.shippingAddress.fullName}
-                    />
+                    /> */}
                     {/* {isPending ? (
                       <LoadingBox />
                     ) : (
@@ -344,6 +344,20 @@ export default function OrderScreen() {
                   </ListGroup.Item>
                 )}
               </ListGroup>
+            </Card.Body>
+          </Card>
+
+          <Card className="mb-3">
+            <Card.Body>
+              <ListGroup.Item>
+                <StripePaymentForm
+                  totalPrice={order.totalPrice.toFixed(2)}
+                  name={order.shippingAddress.fullName}
+                  onSuccess={() => {
+                    dispatch({ type: "PAY_SUCCESS" });
+                  }}
+                />
+              </ListGroup.Item>
             </Card.Body>
           </Card>
         </Col>
