@@ -76,7 +76,7 @@ export default function OrderScreen() {
     successPay: false,
   });
 
-  // const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   function createOrder(data, actions) {
     return actions.order
@@ -118,67 +118,67 @@ export default function OrderScreen() {
     toast.error(getError(err));
   }
 
-  // useEffect(() => {
-  //   const fetchOrder = async () => {
-  //     try {
-  //       dispatch({ type: "FETCH_REQUEST" });
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        dispatch({ type: "FETCH_REQUEST" });
 
-  //       const { data } = await axios.get(`${API_URL}api/orders/${orderId}`, {
-  //         headers: { authorization: `Bearer ${userInfo.token}` },
-  //       });
+        const { data } = await axios.get(`${API_URL}api/orders/${orderId}`, {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        });
 
-  //       dispatch({ type: "FETCH_SUCCESS", payload: data });
-  //     } catch (err) {
-  //       dispatch({ type: "FETCH_FAIL", payload: getError(err) });
-  //     }
-  //   };
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
+      } catch (err) {
+        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+      }
+    };
 
-  //   if (!userInfo) return navigate("/login");
+    if (!userInfo) return navigate("/login");
 
-  //   if (
-  //     !order._id ||
-  //     successPay ||
-  //     successDeliver ||
-  //     (order._id && order._id !== orderId)
-  //   ) {
-  //     fetchOrder();
-  //     if (successPay) {
-  //       dispatch({ type: "PAY_RESET" });
-  //     }
+    if (
+      !order._id ||
+      successPay ||
+      successDeliver ||
+      (order._id && order._id !== orderId)
+    ) {
+      fetchOrder();
+      if (successPay) {
+        dispatch({ type: "PAY_RESET" });
+      }
 
-  //     if (successDeliver) {
-  //       dispatch({ type: "DELIVER_RESET" });
-  //     }
-  //   } else {
-  //     const loadPaypalScript = async () => {
-  //       const { data: clientId } = await axios.get(
-  //         `${API_URL}/api/keys/paypal`,
-  //         {
-  //           headers: { authorization: `Bearer ${userInfo.token}` },
-  //         }
-  //       );
+      if (successDeliver) {
+        dispatch({ type: "DELIVER_RESET" });
+      }
+    } else {
+      const loadPaypalScript = async () => {
+        const { data: clientId } = await axios.get(
+          `${API_URL}/api/keys/paypal`,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          }
+        );
 
-  //       paypalDispatch({
-  //         type: "resetOptions",
-  //         value: {
-  //           "client-id": clientId,
-  //           currency: "USD",
-  //         },
-  //       });
+        paypalDispatch({
+          type: "resetOptions",
+          value: {
+            "client-id": clientId,
+            currency: "USD",
+          },
+        });
 
-  //       paypalDispatch({ type: "setLoadingStatus", value: "pending" });
-  //     };
-  //     // loadPaypalScript();
-  //   }
-  // }, [
-  //   order,
-  //   userInfo,
-  //   orderId,
-  //   navigate,
-  //   paypalDispatch,
-  //   successPay,
-  //   successDeliver,
-  // ]);
+        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+      };
+      // loadPaypalScript();
+    }
+  }, [
+    order,
+    userInfo,
+    orderId,
+    navigate,
+    paypalDispatch,
+    successPay,
+    successDeliver,
+  ]);
 
   async function deliverOrderHandler() {
     try {
@@ -330,7 +330,7 @@ export default function OrderScreen() {
                         ></PayPalButtons>
                       </div>
                     )} */}
-                    {loadingPay && <LoadingBox />}
+                    {/* {loadingPay && <LoadingBox />} */}
                   </ListGroup.Item>
                 )}
                 {userInfo.isAdmin && order.isPaid && !order.isDelivered && (

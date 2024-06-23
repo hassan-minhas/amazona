@@ -13,9 +13,9 @@ root.render(
   <React.StrictMode>
     <StoreProvider>
       <HelmetProvider>
-        {/* <PayPalScriptProvider> */}
-        <App />
-        {/* </PayPalScriptProvider> */}
+        <PayPalScriptProvider>
+          <App />
+        </PayPalScriptProvider>
       </HelmetProvider>
     </StoreProvider>
   </React.StrictMode>

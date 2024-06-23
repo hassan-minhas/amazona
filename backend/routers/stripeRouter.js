@@ -2,9 +2,13 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import { isAuth } from "../utils.js";
 import Stripe from "stripe";
+import dotenv from "dotenv";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+dotenv.config();
 
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+const stripe = new Stripe(stripeSecretKey);
 const stripeRouter = express.Router();
 
 stripeRouter.post(
@@ -20,6 +24,7 @@ stripeRouter.post(
         amount: Math.round(totalPrice * 100), // Amount in cents
         currency: "usd",
       });
+      console.log("paymentIntent", paymentIntent);
 
       res.status(201).send({
         clientSecret: paymentIntent.client_secret,
