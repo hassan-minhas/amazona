@@ -13,6 +13,7 @@ const stripeRouter = express.Router();
 
 stripeRouter.post(
   "/create-payment-intent",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const { totalPrice } = req.body;
     console.log("totalPrice", totalPrice);
@@ -23,7 +24,6 @@ stripeRouter.post(
         amount: Math.round(totalPrice * 100), // Amount in cents
         currency: "usd",
       });
-      console.log("paymentIntent", paymentIntent);
 
       res.status(201).send({
         clientSecret: paymentIntent.client_secret,

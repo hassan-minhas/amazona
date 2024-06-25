@@ -13,6 +13,7 @@ import { API_URL, getError } from "../utils";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
+import moment from "moment-timezone";
 import StripePaymentForm from "../components/StripePaymentForm";
 
 const reducer = (state, action) => {
@@ -92,27 +93,47 @@ export default function OrderScreen() {
       });
   }
 
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
-      try {
-        dispatch({ type: "PAY_REQUEST" });
+  // function onApprove(data, actions) {
+  //   return actions.order.capture().then(async function (details) {
+  //     try {
+  //       dispatch({ type: "PAY_REQUEST" });
 
-        const { data } = await axios.put(
-          `${API_URL}api/orders/${order._id}/pay`,
-          details,
-          {
-            headers: { authorization: `Bearer ${userInfo.token}` },
-          }
-        );
+  //       const { data } = await axios.put(
+  //         `${API_URL}api/orders/${order._id}/pay`,
+  //         details,
+  //         {
+  //           headers: { authorization: `Bearer ${userInfo.token}` },
+  //         }
+  //       );
 
-        dispatch({ type: "PAY_SUCCESS", payload: data });
-        toast.success("Order is paid");
-      } catch (err) {
-        dispatch({ type: "PAY_FAIL", payload: getError(err) });
-        toast.error(getError(err));
-      }
-    });
-  }
+  //       dispatch({ type: "PAY_SUCCESS", payload: data });
+  //       toast.success("Order is paid");
+  //     } catch (err) {
+  //       dispatch({ type: "PAY_FAIL", payload: getError(err) });
+  //       toast.error(getError(err));
+  //     }
+  //   });
+  // }
+  const onPaymentSucccess = async (details) => {
+    try {
+      dispatch({ type: "PAY_REQUEST" });
+      const { id, created } = details;
+
+      const { data } = await axios.put(
+        `${API_URL}api/orders/${order._id}/pay`,
+        { id, status: "paid", update_time: created },
+        {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+
+      dispatch({ type: "PAY_SUCCESS", payload: data });
+      toast.success("Order is paid");
+    } catch (err) {
+      dispatch({ type: "PAY_FAIL", payload: getError(err) });
+      toast.error(getError(err));
+    }
+  };
 
   function onError(err) {
     toast.error(getError(err));
@@ -246,7 +267,8 @@ export default function OrderScreen() {
               </Card.Text>
               {order.isPaid ? (
                 <MessageBox variant="success">
-                  Paid at {order.paidAt}
+                  {/* Paid at import moment from "moment-timezone"; */}
+                  {moment(order?.paidAt).format("ddd, MMM DD, YYYY, hh:mm A")}
                 </MessageBox>
               ) : (
                 <MessageBox variant="danger">Not Paid</MessageBox>
@@ -347,19 +369,21 @@ export default function OrderScreen() {
             </Card.Body>
           </Card>
 
-          <Card className="mb-3">
-            <Card.Body>
-              <ListGroup.Item>
-                <StripePaymentForm
-                  totalPrice={order.totalPrice.toFixed(2)}
-                  name={order.shippingAddress.fullName}
-                  onSuccess={() => {
-                    dispatch({ type: "PAY_SUCCESS" });
-                  }}
-                />
-              </ListGroup.Item>
-            </Card.Body>
-          </Card>
+          {!order.isPaid && (
+            <Card className="mb-3">
+              <Card.Body>
+                <ListGroup.Item>
+                  <StripePaymentForm
+                    userInfo={userInfo}
+                    totalPrice={order.totalPrice.toFixed(2)}
+                    name={order.shippingAddress.fullName}
+                    onError={onError}
+                    onSuccess={onPaymentSucccess}
+                  />
+                </ListGroup.Item>
+              </Card.Body>
+            </Card>
+          )}
         </Col>
       </Row>
     </div>
